@@ -1,0 +1,8 @@
+how to use : 
+
+- A button : 
+1- import Button from "./Composants/Button.js";
+<Button title="the title" id="the id" class="buttonPrincipal or buttonSecondaire"/>
+- An input : 
+2- import Input from "./Composants/Input.js";
+<Input label="the title" id="the id" class="any additionnal class"/>

@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import AccueilATC from './Containers/ATC/AccueilATC';
+import AccueilD from './Containers/Décideur/AccueilD';
+import NotFound from './Containers/404';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate
+} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+      <Routes>
+        <Route caseSensitive={false} path='/decideur/*' element={<AccueilD/>} />
+        <Route caseSensitive={false} path='/atc/*' element={<AccueilATC/>} />
+        <Route caseSensitive={false} path='/404' element={<NotFound/>} />
+        <Route path="*" element={<Navigate replace to="/404" />}/>
+      </Routes>
+      </div>
+    </Router>
   );
 }
 

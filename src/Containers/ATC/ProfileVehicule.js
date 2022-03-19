@@ -1,14 +1,13 @@
-import './stylesheets/GestionVehicules.css';
+import './stylesheets/ProfileVehicule.css';
 import {useContext} from "react";
 import { UserContext } from "../../Context.js";
-import ProfileVehicule from "./ProfileVehicule";
-function GestionVehicules() {
+function ProfileVehicule() {
   //Page de gestion des véhicules de l'ATC
   const {user, loggingOut} = useContext(UserContext);
   return (
     
-    <div>GestionVehicules</div>
+    <div>ProfileVehicule</div>
   );
 }
 
-export default GestionVehicules;
+export default ProfileVehicule;

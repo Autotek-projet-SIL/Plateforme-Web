@@ -6,6 +6,7 @@ import AuthATC from './AuthATC';
 import GestionVehicules from './GestionVehicules';
 import GestionDemandes from './GestionDemandes';
 import GestionComptes from './GestionComptes';
+import GestionLocations from './GestionLocations';
 import CompteATC from './CompteATC';
 import AccueilATC from './AccueilATC';
 function PageATC() {
@@ -54,22 +55,35 @@ function PageATC() {
       {
         switch (window.location.pathname)
         {
+          // Les pages de gestion auront la possibilité de faire appel à des composants comme ProfileAM par exemple, et donc il y'aura du routing dans ces pages aussi
           case "/atc/accueil" :
             return (<AccueilATC/>);
+
           case "/atc/monprofil":
             return (<CompteATC/>);
+
           case "/atc/gestiondemandes":
             return (<GestionDemandes/>);
+
           case "/atc/gestioncomptes":
+          case "/atc/gestioncomptes/*":
             return (<GestionComptes/>);
+
           case "/atc/gestionvehicules":
+          case "/atc/gestionvehicules/*":
             return (<GestionVehicules/>);
+
+          case "/atc/gestionlocations":
+          case "/atc/gestionlocations/*":
+            return (<GestionLocations/>);
+
           case "/atc/inscription":
           case "/atc/inscription/":
           case "/atc":
           case "/atc/":
             setRedirection('/atc/accueil');
             return(null);
+            
           default :
             setRedirection('/404');
             return (null);

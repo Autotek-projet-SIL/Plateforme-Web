@@ -6,3 +6,22 @@ how to use :
 - An input : 
 2- import Input from "./Composants/Input.js";
 <Input label="the title" id="the id" class="any additionnal class"/>
+
+3- userContext : 
+  const {user, login, logout} = useContext(UserContext);
+user : autUser : gets the user object , IN CACHE : type: if it's an atc or decideur , auth : logged in or not
+
+login: fct that sets context and cache to logged in state (in context : saves the user object, in cache : saves user id)
+	TO CALL IT : () => login (userObject, userType)
+logout : sets context to a logged out state - sets cache to a logged out state
+	TO CALL IT : logout
+
+GET IF USER IS AUTH : window.localStorage.getItem("auth")
+GET AUTH USER ID : window.localStorage.getItem("autUserId")
+GET AUTH USER TYPE : window.localStorage.getItem("type")
+GET AUTH USER OBJECT : user
+MUST ADD TOKEN WHEN LOGGED IN AND ONLY ALLOW ACCESS TO REST APIS IF THE TOKEN IS CORRECT 
+
+
+
+

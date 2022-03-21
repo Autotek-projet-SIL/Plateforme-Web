@@ -9,9 +9,13 @@ import {
   Routes,
   Navigate
 } from 'react-router-dom';
-
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+library.add(fas, fab);
 function App() {
   //Routing de la plateforme AutoTek
+  
   return (
     <UserProvider>
       <Router>

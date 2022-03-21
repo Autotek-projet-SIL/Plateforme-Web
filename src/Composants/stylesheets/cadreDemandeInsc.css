@@ -1,0 +1,61 @@
+.cadreInsc{
+    width: 100%;
+  border-radius: 12px;
+  background-color: var(--meduimGreen);
+  display: grid;
+  grid-template-columns: 2fr 9fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 15px;
+  margin: 10px;
+  padding : 10px;
+  align-items:flex-end;
+  box-shadow: 1px 2px 2px hsl(var(--shadow-color) / 0.333),
+    2px 4px 4px hsl(var(--shadow-color) / 0.333);
+}
+
+.cadreInsc>.cadreImg
+{
+    height: 100%;
+    width: 100%;
+    border-radius : 12px 0 0 12px;
+    background-size:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cadreInsc>.infoUser
+{
+
+}
+
+.cadreInsc>.infoUser>.nomUser
+{
+    color: var(--white)
+}
+
+.cadreInsc>.infoUser>.email
+{
+    font-family: Poppins_light;
+    color: var(--white);
+}
+
+.cadreInsc>.infoUser>.pieceId
+{
+    font-family: Poppins_light;
+    color : var(--darkGreen);
+    text-decoration: underline;
+}
+.cadreInsc>.actions
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center
+}
+.cadreInsc>.actions>.validerIcone
+{
+    color: var(--lightGreen);
+}
+.cadreInsc>.actions>.rejetterIcone
+{
+    color: var(--darkGreen);
+}

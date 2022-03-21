@@ -19,6 +19,7 @@
   --secondaryGradient : linear-gradient(#AEE2EF, #6ABBCB);
   --hoverSecondaryGradient : linear-gradient(#C2EEF8, #9AD4E2);
   
+  --shadow-color:0deg 0% 50%;
   /*Size*/
   --title: 24px;
   --text: 16px;

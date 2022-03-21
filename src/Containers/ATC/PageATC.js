@@ -1,5 +1,5 @@
 import './stylesheets/PageATC.css';
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import { UserContext } from "../../Context.js";
 import AuthATC from './AuthATC';
@@ -63,18 +63,20 @@ function PageATC() {
             return (<CompteATC/>);
 
           case "/atc/gestiondemandes":
+          case "/atc/gestiondemandes/inscription":
+          case "/atc/gestiondemandes/support":
             return (<GestionDemandes/>);
 
           case "/atc/gestioncomptes":
-          case "/atc/gestioncomptes/*":
+          case ((window.location.pathname.match("/atc/gestioncomptes/"))? window.location.pathname : undefined):
             return (<GestionComptes/>);
 
           case "/atc/gestionvehicules":
-          case "/atc/gestionvehicules/*":
+          case ((window.location.pathname.match("/atc/gestionvehicules/"))? window.location.pathname : undefined):
             return (<GestionVehicules/>);
 
           case "/atc/gestionlocations":
-          case "/atc/gestionlocations/*":
+          case ((window.location.pathname.match("/atc/gestionlocations/"))? window.location.pathname : undefined):
             return (<GestionLocations/>);
 
           case "/atc/inscription":

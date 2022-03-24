@@ -1,6 +1,6 @@
+
 #gestionDemandesDiv{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
     justify-items: center;
     display: grid;
     grid-template-columns: 1fr;
@@ -10,18 +10,135 @@
     margin: 0;
     padding: 0;
     align-items: stretch;
+    overflow-x: hidden;
 }
-#gestionDemandesDiv>#demandesList{
-    width: 98%;
-    background-color: var(--lightGreen);
+#pageDemandes{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
     overflow-x: hidden;
+}
+#demandesVues{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: flex-start;
+
+}
+#demandesVues>div{
+    padding: 10px;
+    border-radius: 5px 20px 0 0 ;
+    margin-right: 0px;
+    font-size: var(--label);
+    font-family: Poppins_light;
+}
+#vueChosen{
+    background-color: var(--lightGreen);
+    color : var(--meduimGreen);
+    z-index: 20;
+}
+#vueNotChosen{
+    background-color: var(--meduimGreen);
+    color : var(--darkGreen)
+}
+#vueNotChosen:hover{
+    cursor: pointer;
+    font-family: Poppins_semiBold;
+}
+#fitrageList{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 #demandesInsc
 {
-    width: 90%;
-
+    width:90%;
+    background-color: var(--lightGreen);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
+
+#demandesList{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+}
+
+
+@keyframes gradient { 
+  0%{background-position:0 0}
+  100%{background-position:100% 0}
+}
+
+.demandesSearch {
+    border: 1px solid var(--darkGreen);
+    border-radius: 12px;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 210px;
+    padding: .5rem;
+    align-items: center;
+    background: var(--white);
+    font-size: var(--label);
+}
+
+.demandesSearch input {
+  border-style: none; background: transparent; outline: none; 
+  flex-grow: 1;
+  color: var(--darkGreen);
+  vertical-align: middle;
+  
+}
+
+.demandesSearch input::-webkit-input-placeholder {
+    color: var(--darkGreen);
+  }
+
+#demandeSearchBtn {
+    padding: 0; 
+    background: none;
+    border: none; 
+    outline: none;
+    color:  var(--darkGreen);
+    vertical-align: middle;
+    transition: color .25s;
+  
+}
+
+#demandeSearchBtn:hover {
+    color: var(--meduimGreen);
+    cursor: pointer;
+  }
+
+  #reorderIcons{
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      color: var(--darkGreen)
+  }
+  #reorderIcons>*:not(.disabledOrder):hover{
+    cursor: pointer;
+    color:var(--meduimGreen)
+  }
+.selectedOrder{
+    color: var(--meduimGreen);
+    cursor: default;
+}
+.disabledOrder {
+    color: var(--darkGreen);
+    cursor: default;
+}
+  #gestionDemandesDiv footer{
+      background-color: var(--meduimGreen);
+      width: 100%;
+      height: 20px;
+  }

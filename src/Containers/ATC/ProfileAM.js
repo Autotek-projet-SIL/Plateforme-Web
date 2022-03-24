@@ -8,7 +8,7 @@ function ProfileAM() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       ProfileAM</div>
   );
 }

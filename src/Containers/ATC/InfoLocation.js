@@ -8,7 +8,7 @@ function InfoLocation() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       InfoLocation</div>
   );
 }

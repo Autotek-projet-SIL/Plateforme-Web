@@ -8,7 +8,7 @@ function CompteATC() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       CompteATC</div>
   );
 }

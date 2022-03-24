@@ -11,11 +11,10 @@ function AccueilATC() {
   
   return (
     <div>
-      <NavBarATC page="AccueilATC"/>
+      <NavBarATC />
       AccueilATC
       
-      <Button title="testlogout" class="PrimaryButton" onClick={()=>loggingOut()}/>
-      <Button title="go compte" class="SecondaryButton" onClick={()=>  navigate ("/atc/gestiondemandes")}/>
+      <Button title="testlogout" class="buttonPrincipal" onClick={()=>loggingOut()}/>
     </div>
   );
 }

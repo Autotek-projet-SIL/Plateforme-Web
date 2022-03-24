@@ -8,7 +8,7 @@ function ProfileVehicule() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       ProfileVehicule</div>
   );
 }

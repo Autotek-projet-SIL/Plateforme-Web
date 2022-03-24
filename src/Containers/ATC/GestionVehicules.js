@@ -9,7 +9,7 @@ function GestionVehicules() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       GestionVehicules</div>
   );
 }

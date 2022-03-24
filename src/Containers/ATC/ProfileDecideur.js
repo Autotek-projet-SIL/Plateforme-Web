@@ -8,7 +8,7 @@ function ProfileDecideur() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       ProfileDecideur</div>
   );
 }

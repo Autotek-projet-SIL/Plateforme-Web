@@ -11,7 +11,7 @@ function GestionComptes() {
   return (
     
     <div>
-      <NavBarATC page=""/>
+      <NavBarATC />
       GestionComptes</div>
   );
 }

@@ -1,11 +1,13 @@
 @font-face { font-family: Poppins_regular; src: url('./ressources/font-poppins/Poppins-Regular.otf'); }
 body {
   margin: 0;
+  padding: 0;
   font-family:'Poppins_regular', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {

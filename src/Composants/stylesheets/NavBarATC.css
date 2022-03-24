@@ -1,5 +1,10 @@
-#dummynav{
-    width: 100%;
-    background-color: blue;
-    height: 30px;
-}
+#logo-navbarATC {
+    height: 45px;
+       width: 60px;
+   }
+ 
+   #icone_compte_atc {
+        height: 48px;
+       width: 48px;
+       justify-self: right;
+   }

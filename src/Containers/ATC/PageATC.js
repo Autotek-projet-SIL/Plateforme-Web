@@ -22,7 +22,7 @@ function PageATC() {
   useEffect (()=>{
     if (redirection!==false)
     {
-     navigate(redirection)
+     navigate(redirection, { replace: true })
     }
     
     // test si le ATC est déja authentifié selon les données persistantes

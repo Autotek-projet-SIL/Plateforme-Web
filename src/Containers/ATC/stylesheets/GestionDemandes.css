@@ -36,12 +36,12 @@
     font-family: Poppins_light;
 }
 #vueChosen{
-    background-color: var(--lightGreen);
+    background-color: var(--lightGreenLow);
     color : var(--meduimGreen);
     z-index: 20;
 }
 #vueNotChosen{
-    background-color: var(--meduimGreen);
+    background-color: var(--meduimGreenLow);
     color : var(--darkGreen)
 }
 #vueNotChosen:hover{
@@ -49,15 +49,16 @@
     font-family: Poppins_semiBold;
 }
 #fitrageList{
-    width: 100%;
+    width: 98%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    gap:10px
 }
 #demandesInsc
 {
     width:90%;
-    background-color: var(--lightGreen);
+    background-color: var(--lightGreenLow);
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -122,8 +123,7 @@
   #reorderIcons{
       display: flex;
       flex-direction: column;
-      margin-left: 10px;
-      color: var(--darkGreen)
+      color: var(--errorRed)
   }
   #reorderIcons>*:not(.disabledOrder):hover{
     cursor: pointer;
@@ -131,10 +131,12 @@
   }
 .selectedOrder{
     color: var(--meduimGreen);
+    color: yellow;
     cursor: default;
 }
 .disabledOrder {
     color: var(--darkGreen);
+    color: blueviolet;
     cursor: default;
 }
   #gestionDemandesDiv footer{
@@ -142,3 +144,32 @@
       width: 100%;
       height: 20px;
   }
+  #inscNoDemande{
+      color:rgb(78, 78, 78);
+      text-align: center;
+  }
+
+  
+#etatDmndDrop{
+    border:1px solid var(--meduimGreen);
+    border-radius: 5px;
+    background-color: var(--meduimGreen);
+    padding: 10px;
+    color:var(--white);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.dropdown-item{
+    box-sizing: border-box;
+}
+
+h2#etatDmndTitle{
+    margin: 1px;
+    flex:1;
+    color: var(--darkGreen);flex:1;
+}

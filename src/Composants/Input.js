@@ -1,15 +1,29 @@
 import './stylesheets/Input.css';
 function Input(props) {
   
+  function manageLabelIn(event)
+    {
+      document.querySelector("#inputLabel"+props.id).style.display="block"
+    }
+    function manageLabelOut(event)
+    {
+        if (event.target.value === "")
+        {
+            document.querySelector("#inputLabel"+props.id).style.display="block"
+        }
+        else{
+          document.querySelector("#inputLabel"+props.id).style.display="none"
+        }
+    }
   //Composant input selon les spécifications de la charte IHM
   return (
-    <div class="col-3 input-effect">
-    <input id={props.id} className={"input"+ props.class} type="text" />
-      <label>{props.label}</label>
-      <span class="focus-border">
-        <i></i>
-      </span>
-  </div>
+    <div className={"col-3 input-effect " + props.containerClass}>
+      <input id={props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
+        <label id={"inputLabel"+props.id}>{props.label}</label>
+        <span className="focus-border">
+          <i></i>
+        </span>
+    </div>
   );
 }
 

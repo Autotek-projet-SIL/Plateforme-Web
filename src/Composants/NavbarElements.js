@@ -7,7 +7,6 @@ export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   padding : 10px;
-  
   z-index: 10;
   width: 100vw;
   box-sizing:border-box;
@@ -45,9 +44,9 @@ export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   justify-items : center;
-
-  @media screen and (max-width: 768px) {
-    display: none;
+  font-size: 1rem;
+  @media screen and (max-width: 700px) {
+    font-size: 0.7rem;
   }
 `;
 

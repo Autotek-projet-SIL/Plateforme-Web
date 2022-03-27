@@ -20,7 +20,7 @@ function PageD() {
     if (redirection!==false)
     {
       // s'il est nécessaire de rediriger : se rediriger vers la destination
-      navigate(redirection)
+      navigate(redirection, { replace: true })
     }
      
     // test si le décideur est déja authentifié selon les données persistantes

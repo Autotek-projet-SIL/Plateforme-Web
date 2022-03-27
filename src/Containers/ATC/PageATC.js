@@ -14,6 +14,7 @@ function PageATC() {
   const navigate = useNavigate();
   const {user, login, logout} = useContext(UserContext);
   let redirection = false;
+  
   function setRedirection (dest)
   {
     // s'il est nécessaire de rediriger : se rediriger vers la destination
@@ -48,7 +49,7 @@ function PageATC() {
          return (<AuthATC/>)
        }
     }
-    else{
+  else{
       //test si l'utilisateur authentifié est bien un ATC
       
       if (window.localStorage.getItem("type") === "atc")

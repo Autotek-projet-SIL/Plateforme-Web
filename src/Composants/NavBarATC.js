@@ -1,4 +1,7 @@
 import './stylesheets/NavBarATC.css';
+import {useContext} from "react";
+import { UserContext } from "./../Context.js";
+import {useNavigate} from 'react-router-dom';
 
 import {
   Nav,
@@ -9,34 +12,42 @@ import {
 } from './NavbarElements';
 function NavBarATC(props) {
   
+  const {loggingOut} = useContext(UserContext);
+  const navigate = useNavigate();
   //Composant cadre de la demande d'inscription du client 
   return (
     
       <Nav>
-        <NavLink id="logo-atc-nav" to='/atc/accueil'>
+        <NavLink className="nav-eles" to='/atc/accueil'>
           <img id='logo-navbarATC' src={require('../ressources/images/logo-s.png')}  alt='logo' />
         </NavLink>
         
         <NavMenu>
-          <NavLink to='/atc/accueil' activestyle="true">
+          <NavLink className="nav-eles" to='/atc/accueil' activestyle="true">
             Acceuil
           </NavLink>
-          <NavLink to='/atc/gestiondemandes/inscription' activestyle="true">
+          <NavLink className="nav-eles" to='/atc/gestiondemandes/inscription' activestyle="true">
             Demandes
           </NavLink>
-          <NavLink to='/atc/gestionlocations' activestyle="true">
+          <NavLink  className="nav-eles" to='/atc/gestionlocations' activestyle="true">
             Locations
           </NavLink>
-          <NavLink to='/atc/gestionvehicules' activestyle="true">
+          <NavLink className="nav-eles" to='/atc/gestionvehicules' activestyle="true">
             Vehicules
           </NavLink>
-          <NavLink to='/atc/gestioncomptes' activestyle="true">
+          <NavLink className="nav-eles" to='/atc/gestioncomptes' activestyle="true">
             Comptes
           </NavLink>
         </NavMenu>
-        <NavLink id="compte-atc-nav" to='/atc/accueil'>
-        <img id='icone_compte_atc' src={require('../ressources/images/user.png')}  alt='Compte ATC' />
-        </NavLink>
+        <div  className="show nav-eles" >
+          <img id='icone_compte_atc' src={require('../ressources/images/user.png')}  alt='Compte ATC' />
+            <div className="list-categories">
+              <ul >
+              <li  onClick={()=>navigate("/atc/monprofil", { replace: true })}>Votre Compte</li>
+              <li onClick={()=>loggingOut()} > Déconnexion</li>
+              </ul>       
+            </div>
+          </div>
       </Nav>
   );
 }

@@ -25,3 +25,14 @@
 .has-conten.input ~ .focus-border i:after{transition-delay: 0.4s;}
 .input ~ label{position: absolute; left: 14px; width: 100%; color: #ccc; transition: 0.3s; z-index: 1; letter-spacing: 0.5px; text-align: left; margin:0;}
 .input:focus ~ label, .has-content.input ~ label{top: -18px; left: 0; font-size: 12px; color: var(--meduimGreen); transition: 0.3s;}
+
+.pwdToggleVis{
+    position: absolute;
+    right: 10px;
+    z-index: 3;
+    cursor: pointer;
+    color : var(--darkGreen)
+}
+.pwdToggleVis:hover{
+    filter: brightness(250%);
+}

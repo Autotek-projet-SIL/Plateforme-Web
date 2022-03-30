@@ -13,8 +13,8 @@ function AuthATC() {
   function logging ()
   {
     // Fonction permettant le logging de l'atc dans la plateforme
-    let email = document.querySelector("#atcauthMail").value;
-    let mdp = document.querySelector("#atcauthMdp").value;
+    let email = document.querySelector("#inputatcauthMail").value;
+    let mdp = document.querySelector("#inputatcauthMdp").value;
     if ((email==="")||(mdp===""))
     {
       // champs requis vides

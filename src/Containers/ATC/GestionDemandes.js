@@ -231,7 +231,6 @@ function GestionDemandes() {
     <div id="gestionDemandesDiv">
       <NavBarATC />
         {gestionDemands()} 
-      <footer> </footer> 
     </div>
   );
 }

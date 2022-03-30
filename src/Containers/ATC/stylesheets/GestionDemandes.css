@@ -139,11 +139,6 @@
     color: blueviolet;
     cursor: default;
 }
-  #gestionDemandesDiv footer{
-      background-color: var(--meduimGreen);
-      width: 100%;
-      height: 20px;
-  }
   #inscNoDemande{
       color:rgb(78, 78, 78);
       text-align: center;

@@ -16,16 +16,29 @@ function Input(props) {
         }
     }
   //Composant input selon les spécifications de la charte IHM
-  
-  return (
-    <div className={"col-3 input-effect " + props.containerClass}>
-      <input id={props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
-        <label id={"inputLabel"+props.id}>{props.label}</label>
-        <span className="focus-border">
-          <i></i>
-        </span>
-    </div>
-  );
+    if (props.fieldType ==="password")
+    {
+      return (
+        <div className={"col-3 input-effect " + props.containerClass}>
+          <input id={props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
+            <label id={"inputLabel"+props.id}>{props.label}</label>
+            <span className="focus-border">
+              <i></i>
+            </span>
+        </div>
+      );
+    }
+    else{
+      return (
+        <div className={"col-3 input-effect " + props.containerClass}>
+          <input id={props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
+            <label id={"inputLabel"+props.id}>{props.label}</label>
+            <span className="focus-border">
+              <i></i>
+            </span>
+        </div>
+      );
+    }
 }
 
 export default Input;

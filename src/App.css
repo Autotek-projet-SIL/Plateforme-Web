@@ -28,7 +28,11 @@
   --text: 16px;
   --label: 13px;
 }
-
+div#root, #root>div{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 
 @keyframes float {
   0% { transform: translate(0,  0px); }

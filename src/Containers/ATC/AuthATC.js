@@ -37,16 +37,16 @@ function AuthATC() {
     return re.test(email);
   }
   return (
-    <div id="authPage">
-      <div id="authContainer">
-        <div id="authImg">
+    <div id="atcauthPage">
+      <div id="atcauthContainer">
+        <div id="atcauthImg">
         <img src={ImgAuth} alt="Logo Autotek"/>
         </div>
-        <div id="authForm">
+        <div id="atcauthForm">
         <img src={Logo} alt="Logo Autotek"/>
         <div >
-          <Input label="Votre adresse mail" inputClass="" containerClass="formAuthInput" id="authMail" fieldType="email"/>
-          <Input label="Votre mot de passe" inputClass="" containerClass="formAuthInput" id="authMdp" fieldType="password"/>
+          <Input label="Votre adresse mail" inputClass="" containerClass="formAuthInput" id="atcauthMail" fieldType="email"/>
+          <Input label="Votre mot de passe" inputClass="" containerClass="formAuthInput" id="atcauthMdp" fieldType="password"/>
         </div>
         
         <Button title="Connexion" btnClass="buttonPrincipal" onClick={()=>logging()}/>

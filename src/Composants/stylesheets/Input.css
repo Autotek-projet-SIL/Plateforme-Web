@@ -4,7 +4,7 @@
 
 .col-3{width:100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 3%; position: relative;} 
 
-.input{border: 1px solid var(--darkGreen); padding: 7px 14px; transition: 0.4s; background: transparent; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; border-radius: 3px; box-shadow: .1px 2px 5px .1px var(--darkGreenLow);}
+.input{border: 1px solid var(--darkGreen); padding: 7px ; transition: 0.4s; background: transparent; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; border-radius: 3px; box-shadow: .1px 2px 5px .1px var(--darkGreenLow);}
 .input ~ .focus-border:before,
 .input ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: var(--meduimGreen); transition: 0.2s; transition-delay: 0.2s;}
 .input ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
@@ -23,5 +23,5 @@
 .has-content.input ~ .focus-border i:after{height: 100%; transition: 0.2s;}
 .input:focus ~ .focus-border i:after,
 .has-conten.input ~ .focus-border i:after{transition-delay: 0.4s;}
-.input ~ label{position: absolute; left: 14px; width: 100%; top: 10px; color: #ccc; transition: 0.3s; z-index: 1; letter-spacing: 0.5px;}
+.input ~ label{position: absolute; left: 14px; width: 100%; color: #ccc; transition: 0.3s; z-index: 1; letter-spacing: 0.5px; text-align: left; margin:0;}
 .input:focus ~ label, .has-content.input ~ label{top: -18px; left: 0; font-size: 12px; color: var(--meduimGreen); transition: 0.3s;}

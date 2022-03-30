@@ -5,7 +5,7 @@ function Input(props) {
     {
       document.querySelector("#inputLabel"+props.id).style.display="block"
     }
-    function manageLabelOut(event)
+  function manageLabelOut(event)
     {
         if (event.target.value === "")
         {
@@ -16,6 +16,7 @@ function Input(props) {
         }
     }
   //Composant input selon les spécifications de la charte IHM
+  
   return (
     <div className={"col-3 input-effect " + props.containerClass}>
       <input id={props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />

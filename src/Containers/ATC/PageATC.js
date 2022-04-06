@@ -9,10 +9,11 @@ import GestionComptes from './GestionComptes';
 import GestionLocations from './GestionLocations';
 import CompteATC from './CompteATC';
 import AccueilATC from './AccueilATC';
+import {encryptData, decryptData} from "../../crypto";
 function PageATC() {
   //container qui redirige les pages du ATC
   const navigate = useNavigate();
-  const {user, login, logout} = useContext(UserContext);
+  const {user, login, logout, refreshUser} = useContext(UserContext);
   let redirection = false;
   
   function setRedirection (dest)
@@ -27,22 +28,25 @@ function PageATC() {
     }
     
     // test si le ATC est déja authentifié selon les données persistantes
-    if (window.localStorage.getItem("auth")==="true")
+   
+    if (decryptData(window.localStorage.getItem("auth"))==="true")
     {
-      let userInfo = {id:window.localStorage.getItem("autUserId")}; // fetch from bdd using the id : USE TOKEN TO MAKE IT SECURE
-      login (userInfo, window.localStorage.getItem("type"));
+      refreshUser();
     }
     else{
       logout();
     }
   }, []);
-
-  // test si le ATC est authentifié ou pas
-  if (window.localStorage.getItem("auth") === "false")
+  // test si le ATC est authentifié ou pas)))
+  if ((!("auth" in window.localStorage))||((decryptData(window.localStorage.getItem("auth") ) !== "true")&&(decryptData(window.localStorage.getItem("auth") ) !== "false")))
+  {
+    window.localStorage.setItem("auth", encryptData("false" ))
+  }
+  if (decryptData(window.localStorage.getItem("auth") ) === "false")
     {
-      if (window.location.pathname!=="/atc/inscription")
+      if (window.location.pathname!=="/atc/authentification")
        {
-          setRedirection('/atc/inscription');
+          setRedirection('/atc/authentification');
           return (null);
        }
        else{
@@ -52,7 +56,7 @@ function PageATC() {
   else{
       //test si l'utilisateur authentifié est bien un ATC
       
-      if (window.localStorage.getItem("type") === "atc")
+      if (decryptData(window.localStorage.getItem("type") ) === "atc")
       {
         switch (window.location.pathname)
         {
@@ -80,8 +84,8 @@ function PageATC() {
           case ((window.location.pathname.match("/atc/gestionlocations/"))? window.location.pathname : undefined):
             return (<GestionLocations/>);
 
-          case "/atc/inscription":
-          case "/atc/inscription/":
+          case "/atc/authentification":
+          case "/atc/authentification/":
           case "/atc":
           case "/atc/":
             setRedirection('/atc/accueil');

@@ -23,19 +23,19 @@ function NavBarATC(props) {
         </NavLink>
         
         <NavMenu>
-          <NavLink className="nav-eles" to='/atc/accueil' activestyle="true">
+          <NavLink title="Accueil ATC" className="nav-eles" to='/atc/accueil' activestyle="true">
             Acceuil
           </NavLink>
-          <NavLink className="nav-eles" to='/atc/gestiondemandes/inscription' activestyle="true">
+          <NavLink title="Gestion des demandes" className="nav-eles" to='/atc/gestiondemandes/inscription' activestyle="true">
             Demandes
           </NavLink>
-          <NavLink  className="nav-eles" to='/atc/gestionlocations' activestyle="true">
+          <NavLink title="Gestion des locations"   className="nav-eles" to='/atc/gestionlocations' activestyle="true">
             Locations
           </NavLink>
-          <NavLink className="nav-eles" to='/atc/gestionvehicules' activestyle="true">
+          <NavLink title="Gestion des véhicules"  className="nav-eles" to='/atc/gestionvehicules' activestyle="true">
             Vehicules
           </NavLink>
-          <NavLink className="nav-eles" to='/atc/gestioncomptes' activestyle="true">
+          <NavLink title="Gestion des comptes"  className="nav-eles" to='/atc/gestioncomptes' activestyle="true">
             Comptes
           </NavLink>
         </NavMenu>

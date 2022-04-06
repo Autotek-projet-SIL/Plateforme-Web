@@ -26,9 +26,8 @@ function AuthATC() {
       alert("invalid")
     }
     else{
-      let userInfo = {id:1}; //test
+      let userInfo = {email:"atc@root.dz", mdp:"autotekatcroot"}; 
       login (userInfo, "atc");
-      window.location.reload();
     }
     
   }
@@ -51,7 +50,7 @@ function AuthATC() {
         
         <Button title="Connexion" btnClass="buttonPrincipal" onClick={()=>logging()}/>
         <h4>Vous êtes un décideur ? <b onClick={()=>
-     navigate("/decideur/inscription")}>Connectez vous !</b></h4>
+     navigate("/decideur/authentification")}>Connectez vous !</b></h4>
         </div>
         
       </div>

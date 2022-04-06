@@ -66,10 +66,20 @@
 }
 .cadreInsc .actions
 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-around;
+}
+.cadreInsc .actions>div
+{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
     grid-template-rows: 1fr;
-    justify-items: center
+    justify-items: center;
+    min-width: fit-content;
+    width: 50%;
 }
 .validerIcone
 {
@@ -110,7 +120,7 @@
     border-radius: 12px;
     background-color: var(--meduimGreen);
     display: grid;
-    grid-template-columns: 2fr 9fr 1fr;
+    grid-template-columns: 2fr 7fr 3fr;
     grid-template-rows: 1fr;
     gap: 15px;
     margin: 10px 0;
@@ -130,12 +140,12 @@
     grid-template-columns: 2fr 7fr 3fr;
     align-items: center;
 }
-.cadreInsc.inscValidee .etatDmnd
+.cadreInsc .etatDmnd
 {
     color: var(--darkGreen);
 }
 
-.cadreInsc.inscRejetee{
+.cadreInsc.inscRejetee,.cadreInsc.inscRejetee .etatDmnd {
     
     color: var(--white);
 }
@@ -193,4 +203,9 @@
 #causeRejetDesc> .form-control{
     max-width: 100%;
     box-sizing: border-box;
+}
+
+#modalFooter {
+    text-align: left;
+    justify-content: flex-start;
 }

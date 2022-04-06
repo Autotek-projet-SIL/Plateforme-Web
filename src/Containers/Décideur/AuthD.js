@@ -27,8 +27,7 @@ function AuthD() {
     }
     else{
       let userInfo = {id:1}; //test
-      login (userInfo, "atc");
-      window.location.reload();
+      login (userInfo, "decideur");
     }
     
   }
@@ -48,7 +47,7 @@ function AuthD() {
         
         <Button title="Connexion" btnClass="buttonPrincipal" onClick={()=>logging()}/>
         <h4>Vous êtes un administrateur ATC ? <b onClick={()=>
-     navigate("/atc/inscription")}>Connectez vous !</b></h4>
+     navigate("/atc/authentification")}>Connectez vous !</b></h4>
         </div>
         <div id="dauthImg">
           <img src={ImgAuth} alt="Logo Autotek"/>

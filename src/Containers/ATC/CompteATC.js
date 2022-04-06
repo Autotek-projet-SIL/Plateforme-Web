@@ -9,6 +9,7 @@ function CompteATC() {
     
     <div>
       <NavBarATC />
+      {user.nom}
       CompteATC</div>
   );
 }

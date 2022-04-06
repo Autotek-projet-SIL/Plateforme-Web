@@ -7,6 +7,7 @@ import NavBarATC from './../../Composants/NavBarATC';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import http from "../../http.js"
 import { DropdownButton, Spinner, Dropdown } from 'react-bootstrap';
+import {encryptData, decryptData} from "../../crypto";
 function GestionDemandes() {
   //Page de gestion des demandes (inscription + support) de l'ATC
   const refreshInterval = 120000; // temps d'attente avant d'actualiser les données (2 mins)
@@ -54,11 +55,11 @@ function GestionDemandes() {
      //récupérer les demandes d'inscription de la base de données
     if (window.location.pathname==="/atc/gestiondemandes/inscription")
     {
-     
-      await http.get("demandesinscription").then((jResponse)=>{
-        document.querySelectorAll("#reorderIcons>*").forEach((icon)=>{
-          icon.classList.remove("disabledOrder")
-      })
+      await http.get("gestionprofils/locataire/", {"headers": {
+        "token" : decryptData(window.localStorage.getItem('authToken')),
+        "id": decryptData(window.localStorage.getItem('autUserId')),
+      }}).then((jResponse)=>{
+       
   /*      let data = []
         await Promise.all(jResponse.data.map(async(demande)=>{
         // Récupérer les informations du locataire à partir de la base de données selon la demande
@@ -74,10 +75,16 @@ function GestionDemandes() {
         })
       }))
       setDemandes(data)*/
+      if(jResponse.data.length!==0)
+      {
+        document.querySelectorAll("#reorderIcons>*").forEach((icon)=>{
+          icon.classList.remove("disabledOrder")
+      })
+      }
       setFetchedList(jResponse.data);
-      
       }).catch((error)=>{
         document.querySelectorAll("#reorderIcons>*").forEach((icon)=>{
+          icon.classList.remove("selectedOrder")
           icon.classList.add("disabledOrder")
       })
         setFetchedList([]);
@@ -91,16 +98,26 @@ function GestionDemandes() {
     switch (e)
     {
       case "Demandes en attente":
-        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription en attente"
+        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription en attente";
+          setDemandes(demandesFetched.filter((e)=>{
+             return e.statut==="en attente";
+        }))
       break;
       case "Demandes validées":
-        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription validées"
+        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription validées";
+          setDemandes(demandesFetched.filter((e)=>{
+             return e.statut==="validee";
+            }))
       break;
       case "Demandes rejetées":
-        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription rejetées"
+        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription rejetées";
+          setDemandes(demandesFetched.filter((e)=>{
+             return e.statut==="refusee";       
+            }))
       break;
       default : 
-        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription"
+        document.querySelector("h2#etatDmndTitle").innerHTML = "Liste des demandes d'inscription";
+        setDemandes(demandesFetched)
        break;
     }
   }
@@ -110,11 +127,19 @@ function GestionDemandes() {
     {
           document.querySelectorAll("#reorderIcons>*").forEach((icon)=>{
           icon.classList.remove("selectedOrder")
-          console.log(icon.classList)
       })
       event.target.classList.add("selectedOrder")
-      setDemandes(listDemandes.reverse());
-      console.log(event.target.classList.classList)
+      setDemandes(listDemandes.sort((a,b)=>{
+       if ( a.date_inscription < b.date_inscription ){
+         return -1;
+       }
+       if ( a.date_inscription > b.date_inscription ){
+         return 1;
+       }
+       return 0;
+      }));
+      console.log("up")
+      console.log(event.target.classList)
     } 
   }
 
@@ -126,13 +151,27 @@ function GestionDemandes() {
            icon.classList.remove("selectedOrder")
        })
        event.target.classList.add("selectedOrder")
-       setDemandes(listDemandes.reverse());
+       setDemandes(listDemandes.sort((a,b)=>{
+        if ( a.date_inscription < b.date_inscription ){
+          return 1;
+        }
+        if ( a.date_inscription > b.date_inscription ){
+          return -1;
+        }
+        return 0;
+       }));
+       console.log("down")
+       console.log(event.target.classList)
      } 
  }
 
   function search(){
 
     //setDemandes([])
+    let searchFor = document.querySelector("#demandeSearchField").value;
+    setDemandes(demandesFetched.filter((e)=>{
+      return e.nom.includes(searchFor)|| e.prenom.includes(searchFor);
+    }))
   }
 
   function returnList ()
@@ -182,6 +221,7 @@ function GestionDemandes() {
                 <div id="demandesInsc">
                   <div id="fitrageList">
                     <h2 id="etatDmndTitle">Liste des demandes d'inscription</h2>
+                    <div id="filtrageActs">
                     <DropdownButton id="etatDmndDrop" title={etatDmnd} onSelect={(e)=>handleSelect(e)}>
                       <Dropdown.Item eventKey="Toutes les Demandes">Toutes les Demandes</Dropdown.Item>
                       <Dropdown.Item eventKey="Demandes validées">Demandes validées</Dropdown.Item>
@@ -189,12 +229,13 @@ function GestionDemandes() {
                       <Dropdown.Item eventKey="Demandes rejetées">Demandes rejetées</Dropdown.Item>
                     </DropdownButton>
                   <div className="demandesSearch">
-                    <input type="email" placeholder="Recherche"></input>
+                    <input type="email" placeholder="Recherche" id="demandeSearchField"></input>
                     <FontAwesomeIcon id="demandeSearchBtn" icon="fas fa-search" onClick={()=>search()}/>
                   </div>
                   <div id="reorderIcons">
                     <FontAwesomeIcon icon="fas fa-angle-up disabledOrder" onClick={(event)=>orderUp(event)} />
                     <FontAwesomeIcon icon="fas fa-angle-down disabledOrder" onClick={(event)=>orderDown(event)}/>
+                  </div>
                   </div>
                   </div>
                   <div id="demandesList">

@@ -35,7 +35,7 @@ function CadreDemandeInsc(props) {
   function confirmerValider()
   {
     //Confirmer la validation de la demande d'inscription du client
-    http.put(`valider_demande/${props.id_locataire}/demande/${props.demandeId}`).then((jResponse)=>{
+    http.put(`/authentification_web/valider_demande/${props.demande.email}/demande/${props.demandeId}`).then((jResponse)=>{
       window.location.reload();
     }).catch((error)=>{
       alert("Une erreur est survenue, veuillez réessayer ultérieurement");
@@ -46,27 +46,25 @@ function CadreDemandeInsc(props) {
     //Confirmer le rejet de la demande d'inscription du client
     if(rejetVal != 0)
     {
-      if (rejetVal==="personalise")
+      if (rejetVal==="Cause personnalisée")
       {
-        http.put(`refuser_demande/${props.id_locataire}/demande/${props.demandeId}`,{
+        http.put(`/authentification_web/refuser_demande/${props.demande.email}/demande/${props.demandeId}`,{
           "objet" :"Votre demande d'inscription a été rejettée",
           "descriptif":document.querySelector("#causeRejetDesc textarea").value,
           }).then((jResponse)=>{
            window.location.reload();
           }).catch((error)=>{
             alert("Une erreur est survenue, veuillez réessayer ultérieurement");
-            
           });
       }
       else{
-        http.put(`refuser_demande/${props.id_locataire}/demande/${props.demandeId}`,{
+        http.put(`/authentification_web/refuser_demande/${props.demande.email}/demande/${props.demandeId}`,{
           "objet" :"Votre demande d'inscription a été rejettée",
           "descriptif":rejetVal,
           }).then((jResponse)=>{
            window.location.reload();
           }).catch((error)=>{
             alert("Une erreur est survenue, veuillez réessayer ultérieurement");
-            
           });
       }
   }
@@ -76,7 +74,7 @@ function CadreDemandeInsc(props) {
     // fonction qui retourne un cadre différent selon l'état de la demande
     switch (props.demande.statut)
     {
-      case "validée":
+      case "validee":
         return(
         <div id= {"cadre"+props.demandeId} className='cadreInsc inscValidee' >
             <div style={{
@@ -104,8 +102,8 @@ function CadreDemandeInsc(props) {
                   <h4 className='email'>{props.demande.email}</h4>
                   <h4 className='pieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID} >Pièce d'identité</h4>
               </div>
-                <h4 className='etatDmnd' title="Cette demande a déja été Rejettée">Etat de la demande : Rejettée</h4>
-              
+                <h4 className='etatDmnd' title="Cette demande a déja été Rejettée">Etat de la demande : Rejettée </h4>
+                
             </div>
           );
 
@@ -121,8 +119,11 @@ function CadreDemandeInsc(props) {
                 <h4 className='pieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID} >Pièce d'identité</h4>
             </div>
             <div className='actions'>
+                <h4 className='etatDmnd' title="Cette demande est en attente de validation">Etat de la demande : en attente</h4>
+                <div>
                 <FontAwesomeIcon icon="fa-solid fa-check" title="Valider la demande" className="validerIcone" size="lg" onClick={()=>handleShowValider()} />
                 <FontAwesomeIcon icon="fas fa-ban" title="Rejetter la demande" className="rejetterIcone" size="lg" onClick={()=>handleShowRejetter()} />
+                </div>
             </div>
           {validerModal()}
           {rejetterModal()}
@@ -163,6 +164,43 @@ function CadreDemandeInsc(props) {
           <Modal.Footer>
             <FontAwesomeIcon icon="fa-solid fa-check" title="Valider la demande" className="validerIcone" size="lg" onClick={()=>handleShowValider()}/>
             <FontAwesomeIcon icon="fas fa-ban" title="Rejetter la demande" className="rejetterIcone" size="lg" onClick={()=>handleShowRejetter()}/>
+          </Modal.Footer>
+        </Modal>
+      );
+    }
+    else if (props.demande.statut === "refusee")
+    {
+      return(
+    <Modal
+          dialogClassName="custom-dialog"
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Plus d'informations</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="insc_modal_body">
+          <div style={{
+          backgroundImage: `url("${props.demande.photo_selfie}")`
+        }}  className='cadreImg'></div>
+          <div className='infoUser'>
+             <h2 className='nomUser'>{props.demande.nom} {props.demande.prenom} </h2>
+              <h4 className='email'><FontAwesomeIcon icon="fa-solid fa-envelope"  className="infoIcon" />{props.demande.email}</h4>
+              
+              <h4 className='numero_telephone'><FontAwesomeIcon icon="fa-solid fa-phone" className="infoIcon" />{props.demande.numero_telephone}</h4>
+              <h4 className='InscpieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID}>Pièce d'identité</h4>
+            </div>
+          </div>
+          </Modal.Body>
+          <Modal.Footer id="modalFooter">
+            <p>
+                <b>Cause du rejet : <br/></b>
+                {props.demande.descriptif}
+            </p>
           </Modal.Footer>
         </Modal>
       );
@@ -278,8 +316,8 @@ function CadreDemandeInsc(props) {
           <Modal.Title>Êtes vous sure de vouloir valider la demande d'inscription de {props.demande.nom} {props.demande.prenom} ?</Modal.Title>
         </Modal.Header>
         <Modal.Footer className="validerDiv">
-          <Button title="Confirmer" class="buttonPrincipal" onClick={()=>confirmerValider()}/>
-          <Button title="Annuler" class="buttonSecondaire" onClick={()=>handleCloseValider()}/>
+          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>confirmerValider()}/>
+          <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>handleCloseValider()}/>
         </Modal.Footer>
       </Modal>
     );
@@ -313,8 +351,8 @@ function CadreDemandeInsc(props) {
         }
         </Modal.Body>
         <Modal.Footer className="rejetterDiv">
-          <Button title="Confirmer" class="buttonPrincipal" onClick={()=>confirmerRejet()}/>
-          <Button title="Annuler" class="buttonSecondaire" onClick={()=>handleCloseRejetter()}/>
+          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>confirmerRejet()}/>
+          <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>handleCloseRejetter()}/>
         </Modal.Footer>
       </Modal>
     );

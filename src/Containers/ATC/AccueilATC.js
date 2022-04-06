@@ -14,7 +14,7 @@ function AccueilATC() {
       <NavBarATC />
       AccueilATC
       
-      <Button title="testlogout" class="buttonPrincipal" onClick={()=>loggingOut()}/>
+      <Button title="testlogout" btnClass="buttonPrincipal" onClick={()=>loggingOut()}/>
     </div>
   );
 }

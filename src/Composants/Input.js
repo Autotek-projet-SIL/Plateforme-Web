@@ -6,17 +6,16 @@ function Input(props) {
   function manageLabelIn(event)
     {
       document.querySelector("#input"+props.id).classList.remove("has-content")
-      //.style.display="block"
+      document.querySelector("#input"+props.id).classList.remove("input-error")
     }
   function manageLabelOut(event)
     {
         if (event.target.value === "")
         {
-            document.querySelector("#input"+props.id).classList.remove("has-content")//.style.display="block"
+            document.querySelector("#input"+props.id).classList.remove("has-content")
         }
         else{
           document.querySelector("#input"+props.id).classList.add("has-content")
-          //.style.display="none"
         }
     }
   //Composant input selon les spécifications de la charte IHM

@@ -995,7 +995,7 @@
   background-color: #fff;
   border-color: #86b7fe;
   outline: 0;
-  border: 1.5px solid var(--meduimGreen);
+  border: 1.5px solid var(--mediumGreen);
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.5em;

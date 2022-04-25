@@ -38,11 +38,11 @@
 }
 #vueChosen{
     background-color: var(--lightGreenLow);
-    color : var(--meduimGreen);
+    color : var(--mediumGreen);
     z-index: 20;
 }
 #vueNotChosen{
-    background-color: var(--meduimGreenLow);
+    background-color: var(--mediumGreenLow);
     color : var(--darkGreen)
 }
 #vueNotChosen:hover{
@@ -130,7 +130,7 @@
 }
 
 #demandeSearchBtn:hover {
-    color: var(--meduimGreen);
+    color: var(--mediumGreen);
     cursor: pointer;
   }
 
@@ -140,19 +140,18 @@
       color: var(--darkGreen);
       filter: brightness(100%);
   }
-  #reorderIcons>*:not(.disabledOrder):not(.selectedOrder):hover{
+  #reorderIcons>.reOrderIcon:not(.disabledOrder):not(.selectedOrder):hover{
     cursor: pointer;
-    filter: brightness(220%);
+    color: var(--mediumGreen);
   }
 .selectedOrder{
-    filter: brightness(270%);
+    color: var(--mediumGreenLow);
     cursor: default;
 }
 .disabledOrder {
-    color: var(--darkGreen);
+    color: gray;
     color: rgb(78, 78, 78);
     cursor: default;
-    filter: brightness(100%);
 }
   #inscNoDemande{
       color:rgb(78, 78, 78);
@@ -161,9 +160,9 @@
 
   
 #etatDmndDrop{
-    border:1px solid var(--meduimGreen);
+    border:1px solid var(--mediumGreen);
     border-radius: 5px;
-    background-color: var(--meduimGreen);
+    background-color: var(--mediumGreen);
     padding: 10px;
     color:var(--white);
     width: 100%;

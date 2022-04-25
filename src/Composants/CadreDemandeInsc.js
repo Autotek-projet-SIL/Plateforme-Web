@@ -1,17 +1,23 @@
 import './stylesheets/cadreDemandeInsc.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import  {Dropdown, DropdownButton, FloatingLabel, Form, Modal}  from 'react-bootstrap';
 import Button from "./Button"
 import "./stylesheets/bootsrapNeededStles.css";
 import http from "../http.js"
+import { useAlert } from 'react-alert';
+import { decryptData } from '../crypto';
+import { UserContext } from "./../Context.js";
 function CadreDemandeInsc(props) {
-  
+  //Composant cadre de la demande d'inscription du client
+  const {setLoading,loading} = useContext(UserContext)
+  const alert = useAlert();
   const [show, setShow] = useState(false);
   const [showPId, setShowPId] = useState(false);
   const [showValider, setShowValider] = useState(false);
   const [showRejetter, setShowRejetter] = useState(false);
-  const [rejetVal, setRejetVal] = useState("Cause du rejet")
+  const [rejetVal, setRejetVal] = useState("Cause du rejet");
+ // const {getCurrentCredentials} = useContext(UserContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleClosePID = () => setShowPId(false);
@@ -20,7 +26,8 @@ function CadreDemandeInsc(props) {
   const handleShowValider = () => setShowValider(true);
   const handleCloseRejetter = () => setShowRejetter(false);
   const handleShowRejetter = () => setShowRejetter(true);
-  //Composant cadre de la demande d'inscription du client
+
+  // fonction traitement de l'evenemt pour selectionner la cause du rejet
   function handleSelect (e)
   {
     if (e==="Cause personnalisée")
@@ -32,41 +39,59 @@ function CadreDemandeInsc(props) {
     }
     setRejetVal(e)
   }
-  function confirmerValider()
+  async function confirmerValider()
   {
     //Confirmer la validation de la demande d'inscription du client
-    http.put(`/authentification_web/valider_demande/${props.demande.email}/demande/${props.demandeId}`).then((jResponse)=>{
+  //  const currCre =  await getCurrentCredentials()
+    setLoading(true)
+    http.put(`/authentification_web/valider_demande/${props.demande.email}/demande/${props.demandeId}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
+    "id_sender":decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+      setLoading(false)
       window.location.reload();
     }).catch((error)=>{
-      alert("Une erreur est survenue, veuillez réessayer ultérieurement");
+      setLoading(false)
+      alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
     });
   }
-  function confirmerRejet()
+  async function confirmerRejet()
   {
     //Confirmer le rejet de la demande d'inscription du client
-    if(rejetVal != 0)
+    if(rejetVal != "Cause du rejet")
     {
+    //  const currCre =  await getCurrentCredentials();
+      setLoading(true)
       if (rejetVal==="Cause personnalisée")
       {
         http.put(`/authentification_web/refuser_demande/${props.demande.email}/demande/${props.demandeId}`,{
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
           "objet" :"Votre demande d'inscription a été rejettée",
           "descriptif":document.querySelector("#causeRejetDesc textarea").value,
           }).then((jResponse)=>{
+            setLoading(false)
            window.location.reload();
           }).catch((error)=>{
-            alert("Une erreur est survenue, veuillez réessayer ultérieurement");
+            setLoading(false)
+            alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
           });
       }
       else{
         http.put(`/authentification_web/refuser_demande/${props.demande.email}/demande/${props.demandeId}`,{
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
           "objet" :"Votre demande d'inscription a été rejettée",
           "descriptif":rejetVal,
           }).then((jResponse)=>{
+            setLoading(false)
            window.location.reload();
           }).catch((error)=>{
-            alert("Une erreur est survenue, veuillez réessayer ultérieurement");
+            setLoading(false)
+            alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
           });
       }
+  }
+  else{
+    alert.error("Veuillez séléctionner une cause de rejet.")
   }
     
   }
@@ -85,8 +110,10 @@ function CadreDemandeInsc(props) {
                 <h4 className='email'>{props.demande.email}</h4>
                 <h4 className='pieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID} >Pièce d'identité</h4>
             </div>
-                <h4 className='etatDmnd' title="Cette demande a déja été validée">Etat de la demande : Validée</h4>
-            
+            <div className='etatDmnd'>
+               <h4 >Date d'inscription : {props.demande.date_inscription.slice(0, 10)}</h4>
+                <h4  title="Cette demande a déja été validée">Etat de la demande : Validée</h4>
+                </div>
           </div>
         );
 
@@ -102,8 +129,10 @@ function CadreDemandeInsc(props) {
                   <h4 className='email'>{props.demande.email}</h4>
                   <h4 className='pieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID} >Pièce d'identité</h4>
               </div>
-                <h4 className='etatDmnd' title="Cette demande a déja été Rejettée">Etat de la demande : Rejettée </h4>
-                
+              <div className='etatDmnd'>
+                <h4>Date d'inscription : {props.demande.date_inscription.slice(0, 10)}</h4>
+                <h4 title="Cette demande a déja été Rejettée">Etat de la demande : Rejettée </h4>
+                </div>
             </div>
           );
 
@@ -119,6 +148,7 @@ function CadreDemandeInsc(props) {
                 <h4 className='pieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID} >Pièce d'identité</h4>
             </div>
             <div className='actions'>
+                <h4 className='etatDmnd'>Date d'inscription : {props.demande.date_inscription.slice(0, 10)}</h4>
                 <h4 className='etatDmnd' title="Cette demande est en attente de validation">Etat de la demande : en attente</h4>
                 <div>
                 <FontAwesomeIcon icon="fa-solid fa-check" title="Valider la demande" className="validerIcone" size="lg" onClick={()=>handleShowValider()} />
@@ -156,6 +186,7 @@ function CadreDemandeInsc(props) {
               <h4 className='email'><FontAwesomeIcon icon="fa-solid fa-envelope"  className="infoIcon" />{props.demande.email}</h4>
               
               <h4 className='numero_telephone'><FontAwesomeIcon icon="fa-solid fa-phone" className="infoIcon" />{props.demande.numero_telephone}</h4>
+              <h4 className='date_insc'><FontAwesomeIcon icon="fa-solid fa-calendar-check" className="infoIcon" />{props.demande.date_inscription.slice(0, 10)}</h4>
              <br/>
               <h4 className='InscpieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID}>Pièce d'identité</h4>
             </div>
@@ -190,8 +221,9 @@ function CadreDemandeInsc(props) {
           <div className='infoUser'>
              <h2 className='nomUser'>{props.demande.nom} {props.demande.prenom} </h2>
               <h4 className='email'><FontAwesomeIcon icon="fa-solid fa-envelope"  className="infoIcon" />{props.demande.email}</h4>
-              
               <h4 className='numero_telephone'><FontAwesomeIcon icon="fa-solid fa-phone" className="infoIcon" />{props.demande.numero_telephone}</h4>
+              <h4 className='date_insc'><FontAwesomeIcon icon="fa-solid fa-calendar-check" className="infoIcon" />{props.demande.date_inscription.slice(0, 10)}</h4>
+              
               <h4 className='InscpieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID}>Pièce d'identité</h4>
             </div>
           </div>
@@ -228,6 +260,7 @@ function CadreDemandeInsc(props) {
               <h4 className='email'><FontAwesomeIcon icon="fa-solid fa-envelope"  className="infoIcon" />{props.demande.email}</h4>
               
               <h4 className='numero_telephone'><FontAwesomeIcon icon="fa-solid fa-phone" className="infoIcon" />{props.demande.numero_telephone}</h4>
+              <h4 className='date_insc'><FontAwesomeIcon icon="fa-solid fa-calendar-check" className="infoIcon" />{props.demande.date_inscription.slice(0, 10)}</h4>
              <br/>
               <h4 className='InscpieceId' title="Vérifier la pièce d'identité du locataire" onClick={handleShowPID}>Pièce d'identité</h4>
             </div>

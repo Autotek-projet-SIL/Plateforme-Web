@@ -6,9 +6,13 @@ import Input from './../../Composants/Input';
 import Logo from "./../../ressources/images/logo-L.svg";
 import ImgAuth from "./../../ressources/images/auth-img-d.svg";
 import {useNavigate} from 'react-router-dom';
+import { useAlert } from 'react-alert';
+import ClipLoader from "react-spinners/ClipLoader"
 function AuthD() {
   //Page d'inscription du Décideur
-  const {login} = useContext(UserContext);
+  const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
+  const alert = useAlert();
+  const {loading, login} = useContext(UserContext);
   const navigate = useNavigate();
   function logging ()
   {
@@ -18,15 +22,19 @@ function AuthD() {
     if ((email==="")||(mdp===""))
     {
       // champs requis vides
-      alert("vide")
+      
+      alert.error("Veuillez remplir les champs requis.");
+      (email==="") && document.querySelector("#inputdauthMail").classList.add("input-error");
+      (mdp==="") && document.querySelector("#inputdauthMdp").classList.add("input-error");
     }
     else if (validateEmail(email) === false)
     {
       // email invalid
-      alert("invalid")
+      alert.error("Veuillez introduire une adresse mail valide.");
+      document.querySelector("#inputdauthMail").classList.add("input-error");
     }
     else{
-      let userInfo = {id:1}; //test
+      let userInfo = {email:"decideur1@autotek.dz", mdp:"autotekdecideur1"}; 
       login (userInfo, "decideur");
     }
     
@@ -37,6 +45,7 @@ function AuthD() {
   }
   return (
     <div id="dauthPage">
+      <ClipLoader color={"#1B92A4"} loading={loading} css={style} size={50} />
       <div id="dauthContainer">
         <div id="dauthForm">
         <img src={Logo} alt="Logo Autotek"/>

@@ -17,10 +17,10 @@
 {
     height: 100%;
     width: 100%;
-    background-size:100%;
+    background-size:cover;
     background-position: center;
     background-repeat: no-repeat;
-    border : 1px solid var(--white)
+    border : 1px solid var(--white);
 }
 .cadreInsc .cadreImg {
     border-radius : 12px 0 0 12px;
@@ -36,6 +36,11 @@
 .insc_modal_body h4, .insc_modal_body h2
 {
     margin: 2px;
+}
+.cadreInsc .infoUser{
+    padding: 5px;
+    width: 100%;
+    height: 100%;
 }
 .cadreInsc .infoUser>.nomUser
 {
@@ -80,6 +85,7 @@
     justify-items: center;
     min-width: fit-content;
     width: 50%;
+    margin-top: 5px;
 }
 .validerIcone
 {
@@ -92,7 +98,7 @@
     cursor: pointer;
 }
 .infoIcon{
-    color: var(--meduimGreen);
+    color: var(--mediumGreen);
     margin-right: 10px;
 }
 .pid_modal_body{
@@ -108,17 +114,17 @@
 .cadreImgPieceIdentite{
     height: 100%;
     width: 100%;
-    background-size:100%;
+    background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
-    border : 1px solid var(--meduimGreen)
+    border : 1px solid var(--mediumGreen)
 }
 .cadreInsc{
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
     border-radius: 12px;
-    background-color: var(--meduimGreen);
+    background-color: var(--mediumGreen);
     display: grid;
     grid-template-columns: 2fr 7fr 3fr;
     grid-template-rows: 1fr;
@@ -131,18 +137,20 @@
 }
 .cadreInsc.inscValidee{
     background-color: var(--lightGreen);
-    grid-template-columns: 2fr 7fr 3fr;
     align-items: center;
 }
 .cadreInsc.inscRejetee{
     
     background-color: var(--darkGreen);
-    grid-template-columns: 2fr 7fr 3fr;
     align-items: center;
 }
 .cadreInsc .etatDmnd
 {
+    text-align: center;
     color: var(--darkGreen);
+    width: 100%;
+    height: fit-content;
+    margin: 0;
 }
 
 .cadreInsc.inscRejetee,.cadreInsc.inscRejetee .etatDmnd {
@@ -172,9 +180,9 @@
 
 
 #causeRejetDrop{
-    border:1px solid var(--meduimGreen);
+    border:1px solid var(--mediumGreen);
     border-radius: 5px;
-    background-color: var(--meduimGreen);
+    background-color: var(--mediumGreen);
     padding: 10px;
     color:var(--white);
     width: 100%;
@@ -209,3 +217,18 @@
     text-align: left;
     justify-content: flex-start;
 }
+
+
+@media (max-width : 600px) {
+    
+    .cadreInsc{
+        gap:0;
+        grid-template-rows: 10fr 1fr 1fr;
+        grid-template-columns: 1fr;
+        align-items:flex-end;
+        height: 500px;
+    }
+    .cadreInsc .cadreImg {
+        border-radius : 12px 12px 0  0 ;
+    }
+    }

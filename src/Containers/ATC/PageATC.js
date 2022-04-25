@@ -1,6 +1,6 @@
 import './stylesheets/PageATC.css';
 import {useContext, useEffect} from "react";
-import {useNavigate} from 'react-router-dom';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import { UserContext } from "../../Context.js";
 import AuthATC from './AuthATC';
 import GestionVehicules from './GestionVehicules';
@@ -10,6 +10,9 @@ import GestionLocations from './GestionLocations';
 import CompteATC from './CompteATC';
 import AccueilATC from './AccueilATC';
 import {encryptData, decryptData} from "../../crypto";
+import ProfileAM from './ProfileAM';
+import ProfileATC from './ProfileATC';
+import ProfileDecideur from './ProfileDecideur';
 function PageATC() {
   //container qui redirige les pages du ATC
   const navigate = useNavigate();
@@ -31,7 +34,10 @@ function PageATC() {
    
     if (decryptData(window.localStorage.getItem("auth"))==="true")
     {
-      refreshUser();
+        if (decryptData(window.localStorage.getItem("type"))==="atc")
+      {
+        refreshUser("atc");
+      }
     }
     else{
       logout();
@@ -58,10 +64,12 @@ function PageATC() {
       
       if (decryptData(window.localStorage.getItem("type") ) === "atc")
       {
+        let id =0;
         switch (window.location.pathname)
         {
           // Les pages de gestion auront la possibilité de faire appel à des composants comme ProfileAM par exemple, et donc il y'aura du routing dans ces pages aussi
           case "/atc/accueil" :
+          case "/atc/accueil/" :
             return (<AccueilATC/>);
 
           case "/atc/monprofil":
@@ -73,8 +81,23 @@ function PageATC() {
             return (<GestionDemandes/>);
 
           case "/atc/gestioncomptes":
-          case ((window.location.pathname.match("/atc/gestioncomptes/"))? window.location.pathname : undefined):
+          case ("/atc/gestioncomptes/"):
             return (<GestionComptes/>);
+          
+            case ((window.location.pathname.match("/atc/profil/atc/"))? window.location.pathname : undefined):
+              //Récupérer l'id atc encrypté
+                id= window.location.pathname.replace("/atc/profil/atc/","");
+                return (<ProfileATC userId={id}/>)
+              
+              case ((window.location.pathname.match("/atc/profil/am/"))? window.location.pathname : undefined):
+                 //Récupérer l'id am encrypté
+                id= window.location.pathname.replace("/atc/profil/am/","");
+                return(<ProfileAM userId={id}/>)
+              
+              case ((window.location.pathname.match("/atc/profil/decideur/"))? window.location.pathname : undefined):              
+              //Récupérer l'id decideur encrypté
+                id= window.location.pathname.replace("/atc/profil/decideur/","");
+                return (<ProfileDecideur userId={id}/>);
 
           case "/atc/gestionvehicules":
           case ((window.location.pathname.match("/atc/gestionvehicules/"))? window.location.pathname : undefined):

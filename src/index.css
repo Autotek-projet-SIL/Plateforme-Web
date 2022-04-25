@@ -35,7 +35,7 @@ code {
   margin-bottom: 15px;
   padding: 4px 12px;
   background-color: #cfcfcf;
-  border-left: 6px solid var(--meduimGreen);
+  border-left: 6px solid var(--mediumGreen);
   color:var(--darkGreen);
   display: flex;
   flex-wrap: wrap;

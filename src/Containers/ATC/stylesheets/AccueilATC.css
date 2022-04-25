@@ -1,0 +1,62 @@
+#trajetsDiv{
+    width: 100%;
+    height: 100%;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+#accueil{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+#trajetVues{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: flex-start;
+
+}
+#trajetVues>div{
+    padding: 10px;
+    border-radius: 5px 20px 0 0 ;
+    margin-right: 0px;
+    font-size: var(--label);
+    font-family: Poppins_light;
+}
+#vueNotChosen{
+    background-color: var(--mediumGreenLow);
+    color : var(--darkGreen)
+}
+#vueNotChosen:hover{
+    cursor: pointer;
+    font-family: Poppins_semiBold;
+}
+
+#vueGlobale
+{
+    width:90%;
+    background-color: var(--lightGreenLow);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+#vueGlobale h4{
+    margin: 0;
+    margin-bottom: 4px;
+}

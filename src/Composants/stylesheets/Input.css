@@ -6,10 +6,10 @@
 
 .input{border: 1px solid var(--darkGreen); padding: 7px ; transition: 0.4s; background: transparent; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; border-radius: 3px; box-shadow: .1px 2px 5px .1px var(--darkGreenLow);}
 .input ~ .focus-border:before,
-.input ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: var(--meduimGreen); transition: 0.2s; transition-delay: 0.2s;}
+.input ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: var(--mediumGreen); transition: 0.2s; transition-delay: 0.2s;}
 .input ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
 .input ~ .focus-border i:before,
-.input ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: var(--meduimGreen); transition: 0.2s;}
+.input ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: var(--mediumGreen); transition: 0.2s;}
 .input ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
 .input:focus ~ .focus-border:before,
 .input:focus ~ .focus-border:after,
@@ -22,9 +22,9 @@
 .has-content.input ~ .focus-border i:before,
 .has-content.input ~ .focus-border i:after{height: 100%; transition: 0.2s;}
 .input:focus ~ .focus-border i:after,
-.has-conten.input ~ .focus-border i:after{transition-delay: 0.4s;}
-.input ~ label{position: absolute; left: 14px; width: 100%; color: #ccc; transition: 0.3s; z-index: 1; letter-spacing: 0.5px; text-align: left; margin:0;}
-.input:focus ~ label, .has-content.input ~ label{top: -18px; left: 0; font-size: 12px; color: var(--meduimGreen); transition: 0.3s;}
+.has-content.input ~ .focus-border i:after{transition-delay: 0.4s;}
+.input ~ label{position: absolute; left: 14px; width: 100%; color: #a3a3a3; transition: 0.3s; z-index: 1; letter-spacing: 0.5px; text-align: left; margin:0;}
+.input:focus ~ label, .has-content.input ~ label{top: -18px; left: 0; font-size: 12px; color: var(--mediumGreen); transition: 0.3s;}
 
 .pwdToggleVis{
     position: absolute;
@@ -35,4 +35,12 @@
 }
 .pwdToggleVis:hover{
     filter: brightness(250%);
+}
+.input-error {
+    border-color: var(--errorRed);
+}
+.input-error ~ .focus-border::before,.input-error ~ .focus-border::after,.input-error ~ .focus-border i::before, .input-error ~ .focus-border i::after{
+    
+    border-color: var(--errorRed);
+    background-color: var(--errorRed);
 }

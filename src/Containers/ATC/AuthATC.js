@@ -6,9 +6,13 @@ import Logo from "./../../ressources/images/logo-L.svg";
 import ImgAuth from "./../../ressources/images/auth-img-atc.svg";
 import Input from './../../Composants/Input';
 import {useNavigate} from 'react-router-dom';
+import { useAlert } from 'react-alert';
+import ClipLoader from "react-spinners/ClipLoader"
 function AuthATC() {
   //Page d'authentification  de l'ATC
-  const {login} = useContext(UserContext);
+  const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
+  const alert = useAlert();
+  const {loading, login} = useContext(UserContext);
   const navigate = useNavigate();
   function logging ()
   {
@@ -17,13 +21,15 @@ function AuthATC() {
     let mdp = document.querySelector("#inputatcauthMdp").value;
     if ((email==="")||(mdp===""))
     {
-      // champs requis vides
-      alert("vide")
+      alert.error("Veuillez remplir les champs requis.");
+      (email==="") && document.querySelector("#inputatcauthMail").classList.add("input-error");
+      (mdp==="") && document.querySelector("#inputatcauthMdp").classList.add("input-error");
     }
     else if (validateEmail(email) === false)
     {
       // email invalid
-      alert("invalid")
+      alert.error("Veuillez introduire une adresse mail valide.");
+      document.querySelector("#inputatcauthMail").classList.add("input-error");
     }
     else{
       let userInfo = {email:"atc@root.dz", mdp:"autotekatcroot"}; 
@@ -37,6 +43,7 @@ function AuthATC() {
   }
   return (
     <div id="atcauthPage">
+      <ClipLoader color={"#1B92A4"} loading={loading} css={style} size={50} />
       <div id="atcauthContainer">
         <div id="atcauthImg">
         <img src={ImgAuth} alt="Logo Autotek"/>

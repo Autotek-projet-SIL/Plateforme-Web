@@ -1,4 +1,4 @@
-#logo-navbarATC {
+#logo-NavBarD {
         width: 60px;
         height: auto;
    }
@@ -12,7 +12,7 @@
        cursor: pointer;
    }
 @media (max-width : 560px) {
-    #logo-navbarATC {
+    #logo-NavBarD {
             width: 50px;
        }
      
@@ -37,6 +37,7 @@
     text-align: center;
     overflow: hidden;
     margin-left: -150px;
+ 
  
   }
   .show ul {

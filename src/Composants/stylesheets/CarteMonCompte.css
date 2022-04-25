@@ -1,0 +1,133 @@
+#monCompteCard{
+    width: 80%;
+    height: 80%;
+    display: grid;
+    box-sizing: border-box;
+    grid-auto-columns: 1fr;
+    gap:0;
+    justify-content: stretch;
+    align-items: stretch;
+    
+}
+#monCompteCard>div:first-child{
+    grid-column-start: 1;
+    grid-column-end: 12;
+    grid-row-start: 1;
+    grid-row-end: 12;
+    width: 100%;
+    height: 100%;
+}
+#monCompteImg{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 11;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    z-index: 2;
+    background-image: url("../../ressources/images/user-pfp.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    max-height: 450px;
+}
+#monCompteImg>img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    background-color: white;
+}
+
+#monCompteContainer{
+    width: 100%;
+    height: 100%;
+    grid-column-start: 2;
+    grid-column-end: 12;
+    grid-row-start: 2;
+    grid-row-end: 12;
+    background-color: var(--white);
+    border-radius: 3px;
+    padding : 10px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+#monCompteInfos{
+    width: 100%;
+    height: 100%;
+    grid-column-start: 4;
+    grid-column-end: 12;
+    grid-row-start: 2;
+    grid-row-end: 12;
+    padding : 10px;
+    gap : 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+#monCompteInfos hr{
+    border: 1.5px solid var(--darkGreen);
+    background-color: var(--darkGreen);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    width: 100%;
+
+}
+#monCompteInfos h2, #monCompteInfos p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.modifAtc{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#modifInfos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#modifPwd{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.modifAtc .button {
+    margin: 3px;
+}
+@media (max-aspect-ratio: 3/2) {
+    #monCompteImg{
+        grid-column-end: 5;
+    }
+    #monCompteInfos{
+        grid-column-start: 5;
+    }
+
+}
+
+@media (max-aspect-ratio: 2/2) {
+    #monCompteImg{
+        grid-column-end: 6;
+    }
+    #monCompteInfos{
+        grid-column-start: 6;
+    }
+
+}

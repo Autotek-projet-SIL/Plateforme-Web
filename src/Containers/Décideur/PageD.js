@@ -25,10 +25,12 @@ function PageD() {
     }
      
     // test si le décideur est déja authentifié selon les données persistantes
-    if (decryptData(window.localStorage.getItem("auth"),secretKey.current)==="true")
+    if (decryptData(window.localStorage.getItem("auth"))==="true")
     {
-      let userInfo = {id:window.localStorage.getItem("autUserId")}; // fetch from bdd using the id : USE TOKEN TO MAKE IT SECURE
-      login (userInfo, decryptData(window.localStorage.getItem("type"),secretKey.current));
+      if (decryptData(window.localStorage.getItem("type"))==="decideur")
+      {
+        refreshUser("decideur");
+      }
     }
     else{
       logout();
@@ -36,7 +38,7 @@ function PageD() {
   }, []);
   
   // test si le décideur est authentifié ou pas
-  if (decryptData(window.localStorage.getItem("auth"),secretKey.current) === "false")
+  if (decryptData(window.localStorage.getItem("auth")) === "false")
     {
       if (window.location.pathname!=="/decideur/authentification")
        {
@@ -49,7 +51,7 @@ function PageD() {
     }
     else{
       //test si l'utilisateur authentifié est bien un décideur
-      if (decryptData(window.localStorage.getItem("type"),secretKey.current) === "decideur")
+      if (decryptData(window.localStorage.getItem("type")) === "decideur")
       {
         switch (window.location.pathname)
         {

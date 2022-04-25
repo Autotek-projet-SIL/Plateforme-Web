@@ -92,7 +92,7 @@
 }
 
 #dauthForm h4 b{
-    color: var(--meduimGreen);
+    color: var(--mediumGreen);
     cursor: pointer;
 }
 #dauthForm h4 b:hover{

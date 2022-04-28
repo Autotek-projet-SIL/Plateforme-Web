@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import {getAuth,signInWithEmailAndPassword, createUserWithEmailAndPassword, setPersistence,browserLocalPersistence} from "firebase/auth";
-import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
+import {EmailAuthProvider,getAuth,signInWithEmailAndPassword, createUserWithEmailAndPassword, updateEmail,updatePassword, reauthenticateWithCredential} from "firebase/auth";
+import { getStorage, ref, uploadBytes,getDownloadURL, deleteObject  } from "firebase/storage";
 //import {GoogleAuthProvider,getAuth,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,singOut} from "firebase/auth";
 import {getFirestore, collection, getDocs, onSnapshot, query} from "firebase/firestore";
 //import {getFirestore,query,getDocs,collection,where,addDoc} from "firebase/firestore";
@@ -58,3 +58,20 @@ export async function addImage(img, folderUser,uid)
           return null;
       });
 };
+export async function removeImage (url)
+{
+    //Supprimer une image du firestore 
+    let imageRef = ref(storage, url);
+    return await deleteObject(imageRef);
+}
+export async function modifEmail( email)
+{
+    //Modifier l'adresse mail de l'utilisateur authentifié 
+    return await updateEmail(auth.currentUser, email)
+}
+export async function modifPassword( pwd)
+{
+    //Modifier le mot de passe de l'utilisateur authentifié 
+    return await updatePassword(auth.currentUser, pwd)
+}
+//add wait then logout "veuillez vous reconnectez"

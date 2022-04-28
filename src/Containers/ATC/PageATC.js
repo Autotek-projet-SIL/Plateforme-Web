@@ -13,6 +13,7 @@ import {encryptData, decryptData} from "../../crypto";
 import ProfileAM from './ProfileAM';
 import ProfileATC from './ProfileATC';
 import ProfileDecideur from './ProfileDecideur';
+import ProfileVehicule from './ProfileVehicule';
 function PageATC() {
   //container qui redirige les pages du ATC
   const navigate = useNavigate();
@@ -100,8 +101,12 @@ function PageATC() {
                 return (<ProfileDecideur userId={id}/>);
 
           case "/atc/gestionvehicules":
-          case ((window.location.pathname.match("/atc/gestionvehicules/"))? window.location.pathname : undefined):
             return (<GestionVehicules/>);
+
+          case ((window.location.pathname.match("/atc/vehicule/"))? window.location.pathname : undefined):             
+          //Récupérer l'id de la voiture encrypté
+            id= window.location.pathname.replace("/atc/vehicule/","");
+              return (<ProfileVehicule/>);
 
           case "/atc/gestionlocations":
           case ((window.location.pathname.match("/atc/gestionlocations/"))? window.location.pathname : undefined):

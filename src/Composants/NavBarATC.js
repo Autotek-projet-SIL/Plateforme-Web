@@ -43,7 +43,7 @@ function NavBarATC(props) {
           <img id='icone_compte_atc' src={require('../ressources/images/user.png')}  alt='Compte ATC' />
             <div className="list-categories">
               <ul >
-              <li  onClick={()=>navigate("/atc/monprofil", { replace: true })}>Votre Compte</li>
+              <li  onClick={()=>navigate("/atc/monprofil")}>Votre Compte</li>
               <li onClick={()=>loggingOut()} > Déconnexion</li>
               </ul>       
             </div>

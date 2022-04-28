@@ -1,4 +1,4 @@
-import './stylesheets/CadreCompte.css';
+import './stylesheets/CadreVehicule.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from 'react';
 import { UserContext } from "./../Context.js";
@@ -9,8 +9,8 @@ import http from "../http.js"
 import { useAlert } from 'react-alert';
 import { decryptData, encryptData } from '../crypto'; 
 import {Route, Routes, useNavigate} from 'react-router-dom';
-function CadreCompte(props) {
-   //Composant cadre d'un compte employé
+function CadreVehicule(props) {
+   //Composant cadre d'un vehicule vehicule
   
   const alert = useAlert();
  
@@ -20,12 +20,12 @@ function CadreCompte(props) {
   const [fire, setFire] = useState(false);
   const handleCloseFire = () => setFire(false);
   const handleShowFire = () => setFire(true);
-  async function fireEmp (){
+  async function fireVehicule (){
     //const currCre =  await getCurrentCredentials();
       setLoading(true)
-     if (props.compte.type_compte==="ATC")
+     if (props.vehicule.type_vehicule==="ATC")
      {
-      http.delete(`/gestioncomptes/supprimer_atc/${props.compte.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
+      http.delete(`/gestionvehicules/supprimer_atc/${props.vehicule.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
       "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
         setLoading(false)
         window.location.reload();
@@ -34,9 +34,9 @@ function CadreCompte(props) {
         alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
       });
      }
-     else if (props.compte.type_compte==="AM")
+     else if (props.vehicule.type_vehicule==="AM")
      {
-      http.delete(`/gestioncomptes/supprimer_am/${props.compte.id}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
+      http.delete(`/gestionvehicules/supprimer_am/${props.vehicule.id}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
       "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
         setLoading(false)
         window.location.reload();
@@ -46,8 +46,8 @@ function CadreCompte(props) {
       });
      }
      else{
-        //Employé === Décideur
-        http.delete(`/gestioncomptes/supprimer_decideur/${props.compte.id}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
+        //Vehicule === Décideur
+        http.delete(`/gestionvehicules/supprimer_decideur/${props.vehicule.id}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
          "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
           setLoading(false)
           window.location.reload();
@@ -68,10 +68,10 @@ function CadreCompte(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Êtes vous sure de vouloir virer l'employé {props.compte.nom} {props.compte.prenom} ?</Modal.Title>
+          <Modal.Title>Êtes vous sure de vouloir supprimer le vehicule  ?</Modal.Title>
         </Modal.Header>
         <Modal.Footer className="validerDiv">
-          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>fireEmp()} />
+          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>fireVehicule()} />
           <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>handleCloseFire()}/>
         </Modal.Footer>
       </Modal>
@@ -81,18 +81,19 @@ function CadreCompte(props) {
   return (
     <>
     {fireModal()}
-       <div className='cadreCompte' >
+       <div className='cadreVehicule' >
             <div style={{
-            backgroundImage: `url("${props.compte.photo}")`
+            backgroundImage: `url("${props.vehicule.image_vehicule}")`
           }}  className='cadreImg'></div>
-             <div className='infoUser'>
-                <h3 className='nomUser'>{props.compte.nom} {props.compte.prenom}</h3>
-                <h3 className='emailUser'>{props.compte.email} </h3>
-                <h3 className='typeUser'>{props.compte.type_compte}</h3>
+             <div className='infoVehicule'>
+                <h3 className="vehiculeModele">{props.vehicule.modele +" #"+ props.id}</h3>
+                <h3 className="vehiculeType">{props.vehicule.libelle}</h3>
+                <h3 className="vehiculeDispo">{props.vehicule.disponible && "Disponible" || "Non disponible"}</h3>
              </div>
              <div className="actions">
-                <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" title="Afficher le profile de l'employé" className="viewIcon"  onClick={()=>navigate(("/atc/profil/"+props.compte.type_compte.toLowerCase()+"/"+encryptData(props.compte.id))) } />
-                <FontAwesomeIcon icon="fa-solid fa-user-slash" title="Virer l'employé" className="fireIcon" size="lg" onClick={()=>handleShowFire()} />
+                <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" title="Afficher les informations du vehicule" className="viewIcon"  onClick={()=>navigate(("/atc/vehicule/"+encryptData(props.id))) } />
+                <FontAwesomeIcon icon="fa-solid fa-user" className="viewAmIcone" onClick={()=>navigate(("/atc/profil/am/"+encryptData(props.vehicule.id_am)))}/>
+                <FontAwesomeIcon icon="fa-solid fa-xmark" title="supprimer le vehicule" className="fireIcon" size="lg" onClick={()=>handleShowFire()} />
              </div>
           </div>
       
@@ -100,4 +101,4 @@ function CadreCompte(props) {
   );
 }
 
-export default CadreCompte;
+export default CadreVehicule;

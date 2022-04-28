@@ -1,4 +1,4 @@
-import './stylesheets/cadreDemandeInsc.css';
+import './stylesheets/CadreDemandeInsc.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from 'react';
 import  {Dropdown, DropdownButton, FloatingLabel, Form, Modal}  from 'react-bootstrap';

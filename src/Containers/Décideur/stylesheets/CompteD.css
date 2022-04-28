@@ -1,0 +1,22 @@
+#monCompteDiv{
+    width: 100%;
+    height: 100%;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+#compteD{
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}

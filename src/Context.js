@@ -1,5 +1,5 @@
 import {useState, createContext, useEffect} from "react";
-import { signIn, getTheAuth,addImage, singingOut, signUp } from "./firebase";
+import { signIn, getTheAuth,addImage,removeImage, singingOut, signUp, modifEmail, modifPassword } from "./firebase";
 import http from "./http.js";
 import {encryptData, decryptData} from "./crypto.js"
 import { useAlert } from 'react-alert';
@@ -11,7 +11,7 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const alert = useAlert();
   const [user, setUser] = useState({});
-  const [currentInfos, setCurrent] = useState(null);
+ // const [currentInfos, setCurrent] = useState(null);
   const [loading, setLoading] = useState (false);
        const login = async (autUser, typeUser) => {
         //  setSecret({previous:secretKey.current, current:randomKey()})
@@ -110,6 +110,7 @@ export const UserProvider = ({ children }) => {
         const refreshUser = async (type)=>{
           //Rafraischir l'objet user du context + modifier les id/token dans localstorage au changement du state
           getTheAuth().onIdTokenChanged(async (currentUser)=>{
+            try{
               setLoading(true)
               window.localStorage.setItem('currTok', encryptData(await currentUser.getIdToken()));
               window.localStorage.setItem('curruId', encryptData(currentUser.uid ));
@@ -169,6 +170,20 @@ export const UserProvider = ({ children }) => {
                   
                 })
               }
+            }
+            catch (err)
+            {
+              setLoading(false)
+                  if (err.message === "Network Error")
+                  {
+                    alert.error("Une erreur est survenue, veuillez vérifier votre connexion ou réessayer utérieurement.");
+                  }
+                  else{
+                    alert.error("Il semble que vous n'avez pas accès à ce contenu.");
+                    logout()
+                  }  
+            }
+              
              
           })
           
@@ -195,9 +210,18 @@ export const UserProvider = ({ children }) => {
             const url = await addImage(img,userType,uid);
             return url;
         }
+        const suppImage = async (url)=>{
+          return await removeImage(url);
+        }
+        const updateEmail = async (email)=>{
+            return await modifEmail (email);
+        }
+        const updatePwd = async (pwd)=>{
+            return await modifPassword (pwd);  
+        }
         //Retourner le contexte 
         return (
-          <UserContext.Provider value={{ loading, setLoading, user, login,refreshUser,/*getCurrentCredentials,*/ logout, createUser,createImage, loggingOut }}>
+          <UserContext.Provider value={{ loading, setLoading, user, login,refreshUser,/*getCurrentCredentials,*/ logout, createUser,createImage,suppImage, updateEmail,updatePwd ,loggingOut }}>
             {children}
           </UserContext.Provider>
         );

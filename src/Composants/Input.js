@@ -35,7 +35,7 @@ function Input(props) {
     else{
       return (
         <div className={"col-3 input-effect " + props.containerClass}>
-          <input id={"input"+props.id} className={"input "+ props.inputClass} type={props.fieldType} placeholder="" onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
+          <input id={"input"+props.id} className={"input " + (props.parDef&&"has-content" || "") + props.inputClass} type={props.fieldType} placeholder="" defaultValue={props.parDef || ""}  onFocus={(event)=>{manageLabelIn(event)}} onBlur={(event)=>{manageLabelOut(event)}} />
             <label id={"inputLabel"+props.id}>{props.label}</label>
             <span className="focus-border">
               <i></i>

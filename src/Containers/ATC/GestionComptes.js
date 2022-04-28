@@ -180,7 +180,7 @@ function GestionComptes() {
           c["photo"]= compte["photo_decideur"]
           return c;
         });;
-        if([...listeam, ...listeatc, ...listed]!==0)
+        if([...listeam, ...listeatc, ...listed].length!==0)
       {
         document.querySelectorAll("#reorderIcons>.reOrderIcon").forEach((icon)=>{
           icon.classList.remove("disabledOrder")
@@ -292,9 +292,9 @@ function GestionComptes() {
       else{
         setLoading(true)
         createUser(newEmpMail, newEmpPwd).then( async (data) => { 
-          let img =await createImage(newEmpPdp[0],"ATC",data.user.uid);
+          let img =await createImage(newEmpPdp[0],newEmptypeCompte,data.user.uid);
         //  const currCre =  await getCurrentCredentials();
-
+          
           if (newEmptypeCompte==="ATC")
           {
             http.post("/gestioncomptes/ajouter_atc/",{

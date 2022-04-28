@@ -21,6 +21,7 @@
     background-position: center;
     background-repeat: no-repeat;
     border : 1px solid var(--white);
+    background-color: var(--white);
 }
 .cadreInsc .cadreImg {
     border-radius : 12px 0 0 12px;

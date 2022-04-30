@@ -25,6 +25,7 @@ function InfoLocation(props) {
     <div>
       <NavBarATC />
       {props.locationId}
+      need map 
       InfoLocation</div>
   );
 }

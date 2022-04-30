@@ -160,6 +160,9 @@ h2#dispoVehiculeTitle{
     align-items: center;
 }
 
+.addVFooter .button {
+    margin: 3px;
+}
 .footerBtn{
     margin: 0.25rem
 }

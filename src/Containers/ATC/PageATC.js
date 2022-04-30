@@ -14,6 +14,7 @@ import ProfileAM from './ProfileAM';
 import ProfileATC from './ProfileATC';
 import ProfileDecideur from './ProfileDecideur';
 import ProfileVehicule from './ProfileVehicule';
+import InfoLocation from './InfoLocation';
 function PageATC() {
   //container qui redirige les pages du ATC
   const navigate = useNavigate();
@@ -106,12 +107,14 @@ function PageATC() {
           case ((window.location.pathname.match("/atc/vehicule/"))? window.location.pathname : undefined):             
           //Récupérer l'id de la voiture encrypté
             id= window.location.pathname.replace("/atc/vehicule/","");
-              return (<ProfileVehicule/>);
+              return (<ProfileVehicule carId={id}/>);
 
           case "/atc/gestionlocations":
-          case ((window.location.pathname.match("/atc/gestionlocations/"))? window.location.pathname : undefined):
             return (<GestionLocations/>);
 
+          case ((window.location.pathname.match("/atc/gestionlocations/"))? window.location.pathname : undefined):
+            id= window.location.pathname.replace("/atc/gestionlocations/","");
+              return (<InfoLocation locationId={id}/>);
           case "/atc/authentification":
           case "/atc/authentification/":
           case "/atc":

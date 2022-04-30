@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Input from '../../Composants/Input';
 import Button from '../../Composants/Button';
+import { Modal } from 'react-bootstrap';
 function ProfileAM(props) {
   //Page de gestion des véhicules de l'AM
   
@@ -17,6 +18,15 @@ function ProfileAM(props) {
   const {setLoading,loading, updateEmail,updatePwd, user,createImage,suppImage} = useContext(UserContext);
   const [modifDiv, setShown] = useState(false);
   const  [viewedUser, setViewedUser] =useState({});
+  const [fire, setFire] = useState(false);
+  const [statsFirst, setstatsFirst] = useState(true); // montrer les pannes/ la liste des vehicules
+  const handleCloseFire = () => setFire(false);
+  const handleShowFire = () => setFire(true);
+  const [attribuerTache, setAttribuerTache] = useState(false);
+  const handleCloseAttribuerTache = () => setAttribuerTache(false);
+  const handleShowAttribuerTache = () => setAttribuerTache(true);
+  
+  const [listeVehicules, setListeVehicules] = useState([]);
   const navigate = useNavigate();
   let redirection = false;
   function setRedirection (dest)
@@ -40,7 +50,18 @@ function ProfileAM(props) {
           navigate("/404", { replace: true })
         }
         else{
-          setViewedUser(jResponse.data[0])
+          setViewedUser(jResponse.data[0]);
+          //Récupérer les véhicules attribués à l'am
+          http.get("/flotte/vehicule_am/"+decryptData(props.userId), {"headers": {
+            "token" : decryptData(window.localStorage.getItem('currTok')),
+            "id_sender": decryptData(window.localStorage.getItem('curruId')),
+          }}).then((reponse)=>{
+            setListeVehicules(reponse.data)
+            console.log(reponse.data)
+          }).catch((err)=>{
+            alert.error("Une erreur est survenue! Veuillez vérifier votre connexion ou réessayer ultérieurement.");
+
+          })
         }
       }).catch(err=>{
         alert.error("Une erreur est survenue! Veuillez vérifier votre connexion ou réessayer ultérieurement.");
@@ -62,20 +83,18 @@ function ProfileAM(props) {
       }
       else{
         try {
-          await suppImage(viewedUser.photo_am)
-          let img =await createImage(newPdp[0],"am",decryptData(window.localStorage.getItem("currTok")));
-         /* http.put("/gestionprofils/modifier_am/"+viewedUser.id_am,
-          {"token" : decryptData(window.localStorage.getItem("currTok")),
-          "id_sender":decryptData(window.localStorage.getItem("curruId")),
-          "photo_am": img
-    
-        }).then(async jResponse=>{
-          console.log(jResponse.data)
-          alert.show("Photo de profil modifiée avec succès.");
-        }).catch(err=>{
+        // await suppImage(viewedUser.photo_am)
+          let img =await createImage(newPdp[0],"AM",decryptData(window.localStorage.getItem("curruId")));
+                http.put("/gestionprofils/modifier_am/modifier_photo/"+viewedUser.id_am,
+            {"token" : decryptData(window.localStorage.getItem("currTok")),
+            "id_sender":decryptData(window.localStorage.getItem("curruId")),
+            "photo_am": img
+          }).then(async jResponse=>{
+            alert.show("Photo de profil modifiée avec succès.");
+          }).catch(err=>{
           console.log(err)
           alert.error("Une erreur est survenue. Veuillez réessayer ultérieurement.")
-        })*/
+        })
         }
         catch (error)
         {
@@ -108,9 +127,7 @@ function ProfileAM(props) {
       "prenom": prenom,
       "numero_telephone":numTel,
       "email" : viewedUser.email,
-
     }).then(async jResponse=>{
-      console.log(jResponse.data)
       alert.show("Données modifiées avec succès.");
     }).catch(err=>{
       console.log(err)
@@ -125,6 +142,60 @@ function ProfileAM(props) {
     let str = string.replace(/\s+/g,' ').trim();
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+  async function fireEmp (){
+    //const currCre =  await getCurrentCredentials();
+      setLoading(true)
+      http.delete(`/gestioncomptes/supprimer_am/${viewedUser.id}`,{"token" : decryptData(window.localStorage.getItem("currTok")),
+      "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+        setLoading(false)
+        document.location.href="/atc/gestioncomptes/";
+      }).catch((error)=>{
+        setLoading(false)
+        alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
+      });
+   
+  }
+  function fireModal(){
+    return(
+      <Modal
+        show={fire}
+        onHide={handleCloseFire}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Êtes vous sure de vouloir virer l'employé {viewedUser.nom} {viewedUser.prenom} ?</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer className="validerDiv">
+          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>fireEmp()} />
+          <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>handleCloseFire()}/>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+  async function ajouterTache ()
+  {
+
+  }
+  function tacheModal ()
+  {
+    return(
+      <Modal
+        show={attribuerTache}
+        onHide={handleCloseAttribuerTache}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Attribuer une tâche à l'agent de maintenance {viewedUser.nom} {viewedUser.prenom}</Modal.Title>
+        </Modal.Header>
+        
+      </Modal>
+    );
+  }
+  
   function modifierInfosCadre(){
     return (
       
@@ -176,6 +247,8 @@ function ProfileAM(props) {
     return (
       <SkeletonTheme  baseColor="#c3c3c3" highlightColor="#dbdbdb">
       <div id="monCompteCard">
+        {fireModal()}
+        {tacheModal ()}
           <div></div>
           <div id="monCompteImg">
               <img  src={viewedUser.photo_am} alt="Votre photo de profil"/>
@@ -190,7 +263,9 @@ function ProfileAM(props) {
                   <p><FontAwesomeIcon icon="fa-solid fa-envelope " size="xl" /> {viewedUser.email || <Skeleton height="100%" count="0.25"/>}</p>
                   <p><FontAwesomeIcon icon="fa-solid fa-phone " size="xl" />  {viewedUser.numero_telephone || <Skeleton height="100%" count="0.25"/>}</p>
                   <div className="modifAm">
+                    <Button  title="Attribuer une tache" btnClass="buttonPrincipal" onClick={()=>handleShowAttribuerTache()}/>
                     <Button  title="Modifier" btnClass="buttonPrincipal" onClick={()=>setShown(true)}/>
+                    <Button  title="Supprimer" btnClass="buttonSecondaire" onClick={()=>handleShowFire()}/>
                   </div>
                   
               </div>
@@ -198,15 +273,46 @@ function ProfileAM(props) {
       </SkeletonTheme>
     );
   }
-
+function pannesCadre()
+{
   return (
-    
+    <div>Nombres de pannes réparées</div>
+  )
+}
+
+function vehiculesCadre()
+{
+  return (
+    <div>Liste des véhicules </div>
+  )
+}
+  return ( 
     <div id="pageProfileAM"> 
       <NavBarATC />
-      <div id="cadreProfileAm">
-            {(modifDiv && modifierInfosCadre()) || showInfosCadre()}
+        <div id="cadreProfileAm">
+              {(modifDiv && modifierInfosCadre()) || showInfosCadre()}
+        </div>
+        <div id="statsCadre">
+          <div id="contentTags">
+            <div title="Visionner les pannes réparées par l'AM" className={(statsFirst && "selectedDiv")||" "} onClick={()=>{
+              if (!statsFirst)
+              {
+                setstatsFirst(true)
+              }
+            }}>Pannes réparées</div>
+            <div title="Visionner les véhicule gérés par l'AM" className={(!statsFirst && "selectedDiv")||" "} onClick={()=>{
+              if (statsFirst)
+              {
+                setstatsFirst(false)
+              }
+            }}>Liste des véhicules</div>
           </div>
+          <div id="statsContainer">
+            {(statsFirst && pannesCadre()) || vehiculesCadre()}
           </div>
+        </div>
+        
+      </div>
   );
   
 }

@@ -144,6 +144,45 @@
 .modifAm .button {
     margin: 3px;
 }
+
+#statsCadre{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: auto;
+    padding: 4vw;
+    padding-top: 20px;
+    padding-right: 10vw;
+    box-sizing: border-box;
+}
+#contentTags{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+#contentTags>div{
+    padding: 10px;
+    font-size: var(--label);
+    font-family: Poppins_light;
+    background-color: var(--lightGreenLow);
+    color : var(--mediumGreen);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+#contentTags>div.selectedDiv{
+    cursor:default;
+    background-color: var(--white);
+    color : var(--darkGreen);
+}
+#statsContainer{
+    background-color: var(--white);
+    padding: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    grid-row-start: 1;
+    grid-row-end: auto;
+}
 @media (max-aspect-ratio: 3/2) {
     #monCompteImg{
         grid-column-end: 5;

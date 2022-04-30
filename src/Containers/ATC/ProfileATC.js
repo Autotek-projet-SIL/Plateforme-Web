@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Skeleton, {SkeletonTheme } from 'react-loading-skeleton';
 import Button from "../../Composants/Button";
 import Input from '../../Composants/Input';
+import { Modal } from 'react-bootstrap';
 function ProfileATC(props) {
   //Page de gestion des véhicules de l'ATC
   
@@ -22,6 +23,9 @@ function ProfileATC(props) {
   const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
   const [modifDiv, setShown] = useState(false);
   const  [viewedUser, setViewedUser] =useState({});
+  const [fire, setFire] = useState(false);
+  const handleCloseFire = () => setFire(false);
+  const handleShowFire = () => setFire(true);
   useEffect (()=>{
     if (redirection!==false)
     {
@@ -135,6 +139,38 @@ function ProfileATC(props) {
     let str = string.replace(/\s+/g,' ').trim();
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+  async function fireEmp (){
+    //const currCre =  await getCurrentCredentials();
+      setLoading(true)
+      http.delete(`/gestioncomptes/supprimer_atc/${viewedUser.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
+      "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+        setLoading(false)
+        document.location.href="/atc/gestioncomptes/";
+      }).catch((error)=>{
+        setLoading(false)
+        alert.error("Une erreur est survenue, veuillez réessayer ultérieurement", {timeout : 0});
+      });
+   
+  }
+  function fireModal(){
+    return(
+      <Modal
+        show={fire}
+        onHide={handleCloseFire}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Êtes vous sure de vouloir virer l'employé {viewedUser.nom} {viewedUser.prenom} ?</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer className="validerDiv">
+          <Button title="Confirmer" btnClass="buttonPrincipal" onClick={()=>fireEmp()} />
+          <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>handleCloseFire()}/>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
   function modifierInfosCadre(){
     return (
       
@@ -186,6 +222,7 @@ function ProfileATC(props) {
     return (
       <SkeletonTheme  baseColor="#c3c3c3" highlightColor="#dbdbdb">
       <div id="monCompteCard">
+        {fireModal()}
           <div></div>
           <div id="monCompteImg">
               <img  src={viewedUser.photo_atc} alt="Votre photo de profil"/>
@@ -201,6 +238,7 @@ function ProfileATC(props) {
                   <p><FontAwesomeIcon icon="fa-solid fa-phone " size="xl" />  {viewedUser.numero_telephone || <Skeleton height="100%" count="0.25"/>}</p>
                   <div className="modifAtc">
                     <Button  title="Modifier" btnClass="buttonPrincipal" onClick={()=>setShown(true)}/>
+                    <Button  title="Supprimer" btnClass="buttonSecondaire" onClick={()=>handleShowFire()}/>
                   </div>
                   
               </div>

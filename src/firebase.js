@@ -74,4 +74,3 @@ export async function modifPassword( pwd)
     //Modifier le mot de passe de l'utilisateur authentifié 
     return await updatePassword(auth.currentUser, pwd)
 }
-//add wait then logout "veuillez vous reconnectez"

@@ -1,0 +1,24 @@
+.cadreLocation{
+    background-color: var(--mediumGreenLow);
+    color: var(--darkGreen);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    margin-bottom: 5px;
+    border-radius: 24px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    flex-wrap: wrap;
+    gap : 5px;
+}
+.cadreLocation>p{
+    margin: 0;
+}
+.cadreLocation>a,.cadreLocation>a:visited{
+    margin: 0;
+    color: var(--mediumGreen);
+}
+.cadreLocation>a:hover,.cadreLocation>a:visited:hover{
+    filter: brightness(80%);
+}

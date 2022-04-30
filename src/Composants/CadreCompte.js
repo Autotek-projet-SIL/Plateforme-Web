@@ -1,10 +1,10 @@
 import './stylesheets/CadreCompte.css';
+import "./stylesheets/bootsrapNeededStles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from 'react';
 import { UserContext } from "./../Context.js";
 import  {Dropdown, DropdownButton, FloatingLabel, Form, Modal}  from 'react-bootstrap';
 import Button from "./Button"
-import "./stylesheets/bootsrapNeededStles.css";
 import http from "../http.js"
 import { useAlert } from 'react-alert';
 import { decryptData, encryptData } from '../crypto'; 
@@ -26,7 +26,7 @@ function CadreCompte(props) {
      if (props.compte.type_compte==="ATC")
      {
       http.delete(`/gestioncomptes/supprimer_atc/${props.compte.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
-      "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+      "id_sender": decryptData(window.localStorage.getItem("curruId"))}).then((jResponse)=>{
         setLoading(false)
         window.location.reload();
       }).catch((error)=>{

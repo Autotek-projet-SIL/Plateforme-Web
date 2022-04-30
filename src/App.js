@@ -1,4 +1,5 @@
 import './App.css';
+import "./Composants/stylesheets/bootsrapNeededStles.css";
 import PageATC from './Containers/ATC/PageATC';
 import PageD from './Containers/Décideur/PageD';
 import NotFound from './Containers/404';

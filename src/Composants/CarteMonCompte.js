@@ -50,7 +50,7 @@ function CarteMonCompte(props) {
       }).then(async jResponse=>{
         await updatePwd(comptePwd)
         alert.show("Mot de passe modifié avec succès.");
-        loggingOut();
+        await loggingOut();
       }).catch(err=>{
         console.log(err)
         alert.error("Une erreur est survenue. Veuillez réessayer ultérieurement.")
@@ -64,7 +64,7 @@ function CarteMonCompte(props) {
         }).then(async jResponse=>{
           await updatePwd(comptePwd)
           alert.show("Mot de passe modifié avec succès.");
-          loggingOut();
+          await loggingOut();
         }).catch(err=>{
           console.log(err)
           alert.error("Une erreur est survenue. Veuillez réessayer ultérieurement.")

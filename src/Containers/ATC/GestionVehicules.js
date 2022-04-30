@@ -29,11 +29,13 @@ function GestionVehicules() {
   const handleCloseAdd = () => setAdd(false);
   const handleShowAdd = () => setAdd(true);
   const [flotte, setFlotte]= useState([]);
-  const [selectedBrand, setSelectedBrand]= useState([]);
-  const [selectedModele, setSelectedModele]= useState([]);
+  const [selectedBrand, setSelectedBrand]= useState("La marque du véhicule");
+  const [selectedType, setSelectedType]= useState("Le type du véhicule");
+  const [selectedModele, setSelectedModele]= useState("Le modéle du véhicule");
   const [selectedAm, setSelectedAm]= useState("L'agent de maintenance responsable");
-  const [brands, setBrands] = useState("La marque du véhicule");
-  const [modeles, setModeles] = useState("Le modéle du véhicule");
+  const [types, setTypes] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [modeles, setModeles] = useState([]);
   const [listAm, setListAm] = useState([]);
   const [querySnapshot, setSnapshot] = useState([]);
   useEffect(()=>{
@@ -42,11 +44,24 @@ function GestionVehicules() {
         await getCarLocations(setSnapshot)
       }
         getTrajets () 
-     /*   http.get("https://the-vehicles-api.herokuapp.com/brands/").then((response)=>{
+        http.get("flotte/typevehicule/",{"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((response)=>{
           setBrands(response.data);
+          console.log(response.data)
         }).catch(err=>{
           alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-        })*/
+        })
+        http.get("flotte/typevehicule/",{"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((response)=>{
+          setTypes(response.data);
+          console.log(response.data)
+        }).catch(err=>{
+          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+        })
         http.get("gestionprofils/am/", {"headers": {
           "token" : decryptData(window.localStorage.getItem("currTok")),
           "id_sender": decryptData(window.localStorage.getItem("curruId")),
@@ -58,11 +73,19 @@ function GestionVehicules() {
     }
     ,[])
   useEffect(()=>{
-  /*  http.get("https://the-vehicles-api.herokuapp.com/models?brandId="+selectedBrand.id).then((response)=>{
-        setModeles(response.data);
-        }).catch(err=>{
-          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-        })*/
+    if(selectedBrand!== "La marque du véhicule")
+    {
+      http.get("flotte/modelevehicule/"+selectedBrand.id,{"headers": {
+        "token" : decryptData(window.localStorage.getItem("currTok")),
+        "id_sender": decryptData(window.localStorage.getItem("curruId")),
+      }}).then((response)=>{
+        console.log(response.data)
+          setModeles(response.data);
+          }).catch(err=>{
+            alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+          })
+    }
+    
   }, [selectedBrand])
   
   useEffect(()=>{
@@ -237,16 +260,45 @@ function GestionVehicules() {
         </Modal.Header>
         <Modal.Body id="addModalBody">
         <Input label="Numéro du chassis" inputClass="" containerClass="formAddVecInput" id="numChassis" fieldType="text"/>
-        <Input label="Couleur du véhicule" inputClass="" containerClass="formAddVecInput" id="vecColor" fieldType="text"/>
-        <DropdownButton id="dropDownAdd" title={selectedAm} onSelect={(e)=>setSelectedBrand(e)}>
+        <Input label="Couleur du véhicule" inputClass="" containerClass="formAddVecInput" id="vecColor" fieldType="text"/><DropdownButton id="dropDownAdd" title={
+          ((selectedAm === "L'agent de maintenance responsable") && selectedAm)||(listAm.find(e => e.id_am === selectedAm).nom +" " + listAm.find(e => e.id_am === selectedAm).prenom)
+          } onSelect={(e)=>setSelectedAm(e)}>
           {
             listAm.map(am =>{
-              return(<Dropdown.Item eventKey={am.id_am}>{am.nom +" " + am.prenom}</Dropdown.Item>)
+              return(<Dropdown.Item key={am.id_am} eventKey={am.id_am}>{am.nom +" " + am.prenom}</Dropdown.Item>)
+            })
+          }
+        </DropdownButton>
+        <DropdownButton id="dropDownAdd" title={selectedBrand} onSelect={(e)=>setSelectedBrand(e)}>
+          {
+            brands.map(brand =>{
+              return(<Dropdown.Item key={brand.marque} eventKey={brand.marque}>{brand.marque}</Dropdown.Item>)
+            })
+          }
+        </DropdownButton>
+        <DropdownButton id="dropDownAdd" title={selectedModele} onSelect={(e)=>setSelectedModele(e)}>
+          {
+            ((modeles.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-Veuillez séléctionner une marque d'abord-</p>)) ||(
+            modeles.map(modele =>{
+              return(<Dropdown.Item key={modele.upper} eventKey={modele.upper}>{modele.upper}</Dropdown.Item>)
+            }))
+          }
+        </DropdownButton>
+        
+        <DropdownButton id="dropDownAdd" title={
+          ((selectedType === "Le type du véhicule") && selectedType)||(types.find((e) => (e.id_type_vehicule === parseInt(selectedType))).libelle)
+          } onSelect={(e)=>setSelectedType(e)}>
+          {
+            types.map(type =>{
+              return(<Dropdown.Item key={type.id_type_vehicule} eventKey={type.id_type_vehicule}>{type.libelle}</Dropdown.Item>)
             })
           }
         </DropdownButton>
         </Modal.Body>
-        <Modal.Footer >
+        <Modal.Footer className='addVFooter'>
         <Button title="Ajouter" btnClass="buttonPrincipal" onClick={()=>{addVehicle();}}/>
         <div style={{
           display: 'flex',
@@ -260,7 +312,7 @@ function GestionVehicules() {
         id="import_emp_pdp"
       />
       <label htmlFor="import_emp_pdp" >
-        <Button title="Importer la photo de profile" btnClass="buttonSecondaire footerBtn" variant="contained" color="primary" component="span" onClick={(()=>{document.querySelector("#import_emp_pdp").click()})}/>
+        <Button title="Importer la photo du véhicule" btnClass="buttonSecondaire footerBtn" variant="contained" color="primary" component="span" onClick={(()=>{document.querySelector("#import_emp_pdp").click()})}/>
       </label>
         </div>
         <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>{handleCloseAdd();}}/>
@@ -276,12 +328,11 @@ function GestionVehicules() {
       }
     else if (listVehicules.length===0)
    {
-     return (<h3 id="noEmp">Aucun compte ne correspond à votre requête.</h3>)
+     return (<h3 id="noEmp">Aucun véhicule ne correspond à votre requête.</h3>)
    }
     else{
       return (
             listVehicules.map((vehicule) => {
-              console.log(vehicule)
                 return (
                   <CadreVehicule key={vehicule.numero_chassis} id={vehicule.numero_chassis} vehicule={vehicule}></CadreVehicule>
                 )

@@ -139,8 +139,8 @@
     align-items: center;
     box-sizing: border-box;
 }
-#modifVechModalBody .modifCouleurV{
-    margin: 0
+#modifVechModalBody .modifCouleurV,#modifVechModalBody .dropdown{
+    margin :  10px 0
 }
 .modifVFooter .button {
     margin: 3px;

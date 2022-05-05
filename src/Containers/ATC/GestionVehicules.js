@@ -31,7 +31,7 @@ function GestionVehicules() {
   const [flotte, setFlotte]= useState([]);
   const [selectedBrand, setSelectedBrand]= useState("La marque du véhicule");
   const [selectedType, setSelectedType]= useState("Le type du véhicule");
-  const [selectedModele, setSelectedModele]= useState("Le modéle du véhicule");
+  const [selectedModele, setSelectedModele]= useState("Le modèle du véhicule");
   const [selectedAm, setSelectedAm]= useState("L'agent de maintenance responsable");
   const [types, setTypes] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -44,7 +44,7 @@ function GestionVehicules() {
         await getCarLocations(setSnapshot)
       }
         getTrajets () 
-        http.get("flotte/typevehicule/",{"headers": {
+        http.get("flotte/marque/",{"headers": {
           "token" : decryptData(window.localStorage.getItem("currTok")),
           "id_sender": decryptData(window.localStorage.getItem("curruId")),
         }}).then((response)=>{
@@ -72,21 +72,21 @@ function GestionVehicules() {
         })
     }
     ,[])
-  useEffect(()=>{
-    if(selectedBrand!== "La marque du véhicule")
-    {
-      http.get("flotte/modelevehicule/"+selectedBrand.id,{"headers": {
-        "token" : decryptData(window.localStorage.getItem("currTok")),
-        "id_sender": decryptData(window.localStorage.getItem("curruId")),
-      }}).then((response)=>{
-        console.log(response.data)
-          setModeles(response.data);
-          }).catch(err=>{
-            alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-          })
-    }
-    
-  }, [selectedBrand])
+    useEffect(()=>{
+      if(selectedBrand!== "La marque du véhicule")
+      {
+        http.get("flotte/modele_marque/"+selectedBrand,{"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((response)=>{
+          console.log(response.data)
+            setModeles(response.data);
+            }).catch(err=>{
+              alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+            })
+      }
+      
+    }, [selectedBrand])
   
   useEffect(()=>{
     //Set la flotte avec les infos d'état (dans firebase)
@@ -225,25 +225,84 @@ function GestionVehicules() {
         setOrder("Down");
      } 
  }
- function addVehicle()
+ async function addVehicle()
  {
-/*
-    dispo true 
-    destination : 0
-    kilometrage 0
-
-    temperature 0 */
+    let numero_chassis = document.querySelector("#inputnumChassis").value;
+    let couleur = document.querySelector("#inputvecColor").value;
+    let newPdp = document.querySelector("#import_vehicule_pdp").files;
+    if (numero_chassis==="")
+    {
+      alert.error("Veuillez sélectionner le numéro chassis du véhicule")
+      document.querySelector("#inputnumChassis").classList.add("input-error");
+    }
+    else if (numero_chassis.length>10)
+    {
+      alert.error("La longueur du numéro de chassis ne doit pas dépasser 10 charactères")
+      document.querySelector("#inputnumChassis").classList.add("input-error");
+    }
+    else if (newPdp.length===0) {
+      //photo de profile non choisie
+      alert.error("Veuillez importer une photo de profile.")
+    }
+    else if (!newPdp[0].type.includes("image"))
+      {
+        alert.error("Veuillez importer une photo de profil valide");
+      }
+    else if( selectedBrand ==="La marque du véhicule")
+    {
+        alert.error("Veuillez sélectionner la marque du véhicule")
+    }
+    else if (selectedModele ==="Le modèle du véhicule")
+    {
+      alert.error("Veuillez sélectionner le modèle du véhicule")
+    }
+    else if (selectedType==="Le type du véhicule")
+    {
+      alert.error("Veuillez sélectionner le type du véhicule")
+    }
+    else if (couleur==="")
+    {
+      alert.error("Veuillez sélectionner la couleur du véhicule")
+      document.querySelector("#inputvecColor").classList.add("input-error");
+    }
+    else{
+      try {
+         let img =await createImage(newPdp[0],"Vehicule",numero_chassis);
+      http.post("/flotte/ajouter_vehicule/",
+      {"token" : decryptData(window.localStorage.getItem("currTok")),
+      "id_sender":decryptData(window.localStorage.getItem("curruId")),
+        "num_chassis":numero_chassis,
+        "marque":brands.find((e) => (e.id_marque === parseInt(selectedBrand))).libelle,
+        "modele":modeles.find((e) => (e.id_modele === parseInt(selectedModele))).libelle,
+        "couleur":couleur,
+        "id_type_vehicule":selectedType,
+        "id_am" : selectedAm,
+        "image_vehicule" : img, 
+        "disponible" : true
+    }).then((response)=>{
+          document.location.reload();
+      }).catch(err=>{
+        alert.error("Une erreur est survenue. Veuillez réessayer ultérieurment.")
+        console.log(err)
+      })
+    }
+    catch(err)
+    {
+      alert.error("Une erreur est survenue. Veuillez réessayer ultérieurment.")
+      console.log(err)
+    }
+    }
  }
   function addModal()
   {
     /*
     num chassis  *
-    marque --
-    modele--
+    marque *
+    modele*
     couleur *
-    type vehicule--
-    am
-    img
+    type vehicule*
+    am*
+    img*
     latitude longitude : park--
     */
     return(
@@ -264,26 +323,39 @@ function GestionVehicules() {
           ((selectedAm === "L'agent de maintenance responsable") && selectedAm)||(listAm.find(e => e.id_am === selectedAm).nom +" " + listAm.find(e => e.id_am === selectedAm).prenom)
           } onSelect={(e)=>setSelectedAm(e)}>
           {
-            listAm.map(am =>{
-              return(<Dropdown.Item key={am.id_am} eventKey={am.id_am}>{am.nom +" " + am.prenom}</Dropdown.Item>)
-            })
-          }
-        </DropdownButton>
-        <DropdownButton id="dropDownAdd" title={selectedBrand} onSelect={(e)=>setSelectedBrand(e)}>
-          {
-            brands.map(brand =>{
-              return(<Dropdown.Item key={brand.marque} eventKey={brand.marque}>{brand.marque}</Dropdown.Item>)
-            })
-          }
-        </DropdownButton>
-        <DropdownButton id="dropDownAdd" title={selectedModele} onSelect={(e)=>setSelectedModele(e)}>
-          {
-            ((modeles.length===0) && (<p style={{
+            ((listAm.length===0) && (<p style={{
               margin:"1px",
               color : "gray"
-            }}>-Veuillez séléctionner une marque d'abord-</p>)) ||(
+            }}>-En cours de chargement-</p>)) ||(listAm.map(am =>{
+              return(<Dropdown.Item key={am.id_am} eventKey={am.id_am}>{am.nom +" " + am.prenom}</Dropdown.Item>)
+            }))
+          }
+        </DropdownButton>
+        <DropdownButton id="dropDownAdd" title={
+          ((selectedBrand === "La marque du véhicule") && selectedBrand)||(brands.find((e) => (e.id_marque === parseInt(selectedBrand))).libelle)
+          } onSelect={(e)=>{setSelectedBrand(e);setSelectedModele("Le modèle du véhicule")}}>
+          {
+            ((brands.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(brands.map(brand =>{
+              return(<Dropdown.Item key={brand.id_marque} eventKey={brand.id_marque}>{brand.libelle}</Dropdown.Item>)
+            }))
+          }
+        </DropdownButton>
+        <DropdownButton id="dropDownAdd" title={
+          ((selectedModele === "Le modèle du véhicule") && selectedModele)||(modeles.find((e) => (e.id_modele === parseInt(selectedModele))).libelle)
+          } onSelect={(e)=>setSelectedModele(e)}>
+          {
+            ((selectedBrand === "La marque du véhicule") && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-Veuillez séléctionner une marque d'abord-</p>)) || ((modeles.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(
             modeles.map(modele =>{
-              return(<Dropdown.Item key={modele.upper} eventKey={modele.upper}>{modele.upper}</Dropdown.Item>)
+              return(<Dropdown.Item key={modele.id_modele} eventKey={modele.id_modele}>{modele.libelle}</Dropdown.Item>)
             }))
           }
         </DropdownButton>
@@ -292,9 +364,12 @@ function GestionVehicules() {
           ((selectedType === "Le type du véhicule") && selectedType)||(types.find((e) => (e.id_type_vehicule === parseInt(selectedType))).libelle)
           } onSelect={(e)=>setSelectedType(e)}>
           {
-            types.map(type =>{
+            ((types.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(types.map(type =>{
               return(<Dropdown.Item key={type.id_type_vehicule} eventKey={type.id_type_vehicule}>{type.libelle}</Dropdown.Item>)
-            })
+            }))
           }
         </DropdownButton>
         </Modal.Body>
@@ -309,10 +384,10 @@ function GestionVehicules() {
         type="file"
         accept="image/*"
         style={{ display: 'none', margin:0 }}
-        id="import_emp_pdp"
+        id="import_vehicule_pdp"
       />
-      <label htmlFor="import_emp_pdp" >
-        <Button title="Importer la photo du véhicule" btnClass="buttonSecondaire footerBtn" variant="contained" color="primary" component="span" onClick={(()=>{document.querySelector("#import_emp_pdp").click()})}/>
+      <label htmlFor="import_vehicule_pdp" >
+        <Button title="Importer la photo du véhicule" btnClass="buttonSecondaire footerBtn" variant="contained" color="primary" component="span" onClick={(()=>{document.querySelector("#import_vehicule_pdp").click()})}/>
       </label>
         </div>
         <Button title="Annuler" btnClass="buttonSecondaire" onClick={()=>{handleCloseAdd();}}/>

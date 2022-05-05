@@ -16,7 +16,7 @@ function CadreCompte(props) {
  
   const navigate = useNavigate();
   //const {getCurrentCredentials} = useContext(UserContext);
-  const {setLoading,loading} = useContext(UserContext)
+  const {setLoading,loading,suppImage} = useContext(UserContext)
   const [fire, setFire] = useState(false);
   const handleCloseFire = () => setFire(false);
   const handleShowFire = () => setFire(true);
@@ -26,7 +26,9 @@ function CadreCompte(props) {
      if (props.compte.type_compte==="ATC")
      {
       http.delete(`/gestioncomptes/supprimer_atc/${props.compte.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
-      "id_sender": decryptData(window.localStorage.getItem("curruId"))}).then((jResponse)=>{
+      "id_sender": decryptData(window.localStorage.getItem("curruId"))}).then(async(jResponse)=>{
+        
+        await suppImage(props.compte.photo_am)
         setLoading(false)
         window.location.reload();
       }).catch((error)=>{

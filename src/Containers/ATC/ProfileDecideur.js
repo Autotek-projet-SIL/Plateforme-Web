@@ -68,7 +68,7 @@ function ProfileDecideur(props) {
       }
       else{
         try {
-    //      await suppImage(viewedUser.photo_decideur);
+          await suppImage(viewedUser.photo_decideur);
           let img =await createImage(newPdp[0],"Decideur",viewedUser.id_decideur);
           http.put("/gestionprofils/modifier_decideur/modifier_photo/"+viewedUser.id_decideur,
           {"token" : decryptData(window.localStorage.getItem("currTok")),

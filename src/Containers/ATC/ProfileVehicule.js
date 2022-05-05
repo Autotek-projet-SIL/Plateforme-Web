@@ -37,51 +37,26 @@ function ProfileVehicule(props) {
   const [types, setTypes] = useState([]);
   const [selectedBrand, setSelectedBrand]= useState("La marque du véhicule");
   const [brands, setBrands] = useState([]);
-  const [selectedModele, setSelectedModele]= useState("Le modéle du véhicule");
+  const [selectedModele, setSelectedModele]= useState("Le modèle du véhicule");
   const [modeles, setModeles] = useState([]);
   const [querySnapshot, setSnapshot] = useState([]);
   const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
-  
+  //when u get them change 'selecte + couleur' inputs
   useEffect(()=>{
     async function getTrajets ()
       {
         await getCarLocations(setSnapshot)
       }
         getTrajets () 
-        http.get("gestionprofils/am/", {"headers": {
-          "token" : decryptData(window.localStorage.getItem("currTok")),
-          "id_sender": decryptData(window.localStorage.getItem("curruId")),
-        }}).then((response)=>{
-            setListAm(response.data);
-        }).catch((err)=>{
-          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-        })
-        http.get("flotte/typevehicule/",{"headers": {
-          "token" : decryptData(window.localStorage.getItem("currTok")),
-          "id_sender": decryptData(window.localStorage.getItem("curruId")),
-        }}).then((response)=>{
-          setTypes(response.data);
-        }).catch(err=>{
-          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-        })
-        
-        http.get("flotte/marquevehicule/",{"headers": {
-          "token" : decryptData(window.localStorage.getItem("currTok")),
-          "id_sender": decryptData(window.localStorage.getItem("curruId")),
-        }}).then((mResponse)=>{
-          setBrands(mResponse.data);
-        }).catch(err=>{
-          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
-        })
+       
   }, [])
   useEffect(()=>{
     if(selectedBrand!== "La marque du véhicule")
     {
-      http.get("flotte/modelevehicule/"+selectedBrand,{"headers": {
+      http.get("flotte/modele_marque/"+selectedBrand,{"headers": {
         "token" : decryptData(window.localStorage.getItem("currTok")),
         "id_sender": decryptData(window.localStorage.getItem("curruId")),
       }}).then((response)=>{
-        console.log(response.data)
           setModeles(response.data);
           }).catch(err=>{
             alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
@@ -89,6 +64,26 @@ function ProfileVehicule(props) {
     }
     
   }, [selectedBrand])
+  useEffect(()=>{
+    if ((brands.length !==0) && (Object.keys(viewedVehicle).length!==0))
+    {
+      setSelectedBrand(brands.find((e) => (e.libelle ===viewedVehicle.marque )).id_marque)
+    }
+  },[brands,viewedVehicle])
+  useEffect(()=>{
+    if ((types.length !==0) && (Object.keys(viewedVehicle).length!==0))
+    {
+      setSelectedType(viewedVehicle.id_type_vehicule)
+    }
+    
+  },[types,viewedVehicle])
+  useEffect(()=>{
+    if((modeles.length !==0) && (Object.keys(viewedVehicle).length!==0))
+    {
+      setSelectedModele(modeles.find((e) => (e.libelle ===viewedVehicle.modele )).id_modele)
+    }
+  },[modeles,viewedVehicle])
+  
   useEffect(()=>{
     http.get("/flotte/detail_vehicule/"+props.carId, {"headers": {
       "token" : decryptData(window.localStorage.getItem('currTok')),
@@ -106,6 +101,31 @@ function ProfileVehicule(props) {
             
           }
         });
+        http.get("gestionprofils/am/", {"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((response)=>{
+            setListAm(response.data);
+         }).catch((err)=>{
+          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+        })
+        http.get("flotte/typevehicule/",{"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((response)=>{
+          setTypes(response.data);
+        }).catch(err=>{
+          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+        })
+        
+        http.get("flotte/marque/",{"headers": {
+          "token" : decryptData(window.localStorage.getItem("currTok")),
+          "id_sender": decryptData(window.localStorage.getItem("curruId")),
+        }}).then((mResponse)=>{
+          setBrands(mResponse.data);
+        }).catch(err=>{
+          alert.error("Une erreur est survenue lors du chargement des données. Vérifiez votre connexion.")
+        })
       }
     }).catch(err=>{
       alert.error("Une erreur est survenue! Veuillez vérifier votre connexion ou réessayer ultérieurement.");
@@ -115,7 +135,8 @@ function ProfileVehicule(props) {
     //const currCre =  await getCurrentCredentials();
     setLoading(true)
     http.delete(`/flotte/supprimer_vehicule/${props.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
-    "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+    "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then(async (jResponse)=>{
+      await suppImage(viewedVehicle.image_vehicule);
       setLoading(false)
       document.location.href="/atc/gestionvehicules/";
     }).catch((error)=>{
@@ -142,9 +163,12 @@ function ProfileVehicule(props) {
           ((selectedAm === "L'agent de maintenance responsable") && selectedAm)||(listAm.find(e => e.id_am === selectedAm).nom +" " + listAm.find(e => e.id_am === selectedAm).prenom)
           } onSelect={(e)=>setSelectedAm(e)}>
           {
-            listAm.map(am =>{
+            ((listAm.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(listAm.map(am =>{
               return(<Dropdown.Item key={am.id_am} eventKey={am.id_am}>{am.nom +" " + am.prenom}</Dropdown.Item>)
-            })
+            }))
           }
         </DropdownButton>
         </Modal.Body>
@@ -199,9 +223,9 @@ function ProfileVehicule(props) {
     {
         alert.error("Veuillez sélectionner la marque du véhicule")
     }
-    else if (selectedModele ==="Le modéle du véhicule")
+    else if (selectedModele ==="Le modèle du véhicule")
     {
-      alert.error("Veuillez sélectionner le modéle du véhicule")
+      alert.error("Veuillez sélectionner le modèle du véhicule")
     }
     else if (selectedType==="Le type du véhicule")
     {
@@ -218,12 +242,10 @@ function ProfileVehicule(props) {
       {"token" : decryptData(window.localStorage.getItem("currTok")),
       "id_sender":decryptData(window.localStorage.getItem("curruId")),
         "num_chassis":viewedVehicle.numero_chassis,
-        "marque":selectedBrand,
-        "modele":selectedModele,
+        "marque":brands.find((e) => (e.id_marque === parseInt(selectedBrand))).libelle,
+        "modele":modeles.find((e) => (e.id_modele === parseInt(selectedModele))).libelle,
         "couleur":couleur,
         "id_type_vehicule":selectedType,
-        "id_am":viewedVehicle.id_am,
-        "image_vehicule":viewedVehicle.image_vehicule
     }).then((response)=>{
           document.location.reload();
       }).catch(err=>{
@@ -283,21 +305,31 @@ function ProfileVehicule(props) {
           <Modal.Title>Modifier les informations du véhicule  {viewedVehicle.modele +" #"+ viewedVehicle.numero_chassis}</Modal.Title>
         </Modal.Header>
         <Modal.Body id="modifVechModalBody">
-        <DropdownButton id="dropDownAdd" title={selectedBrand} onSelect={(e)=>setSelectedBrand(e)}>
+        <DropdownButton id="dropDownAdd" title={
+          ((selectedBrand === "La marque du véhicule") && selectedBrand)||(brands.find((e) => (e.id_marque === parseInt(selectedBrand))).libelle)
+          } onSelect={(e)=>{setSelectedBrand(e);setSelectedModele("Le modèle du véhicule")}}>
           {
-            brands.map(brand =>{
-              return(<Dropdown.Item key={brand.marque} eventKey={brand.marque}>{brand.marque}</Dropdown.Item>)
-            })
-          }
-        </DropdownButton>
-        <DropdownButton id="dropDownAdd" title={selectedModele} onSelect={(e)=>setSelectedModele(e)}>
-          {
-            ((modeles.length===0) && (<p style={{
+            ((brands.length===0) && (<p style={{
               margin:"1px",
               color : "gray"
-            }}>-Veuillez séléctionner une marque d'abord-</p>)) ||(
+            }}>-En cours de chargement-</p>)) ||(brands.map(brand =>{
+              return(<Dropdown.Item key={brand.id_marque} eventKey={brand.id_marque}>{brand.libelle}</Dropdown.Item>)
+            }))
+          }
+        </DropdownButton>
+        <DropdownButton id="dropDownAdd" title={
+          ((selectedModele === "Le modèle du véhicule") && selectedModele)||(modeles.find((e) => (e.id_modele === parseInt(selectedModele))).libelle)
+          } onSelect={(e)=>setSelectedModele(e)}>
+          {
+            ((selectedBrand === "La marque du véhicule") && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-Veuillez séléctionner une marque d'abord-</p>)) || ((modeles.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(
             modeles.map(modele =>{
-              return(<Dropdown.Item key={modele.upper} eventKey={modele.upper}>{modele.upper}</Dropdown.Item>)
+              return(<Dropdown.Item key={modele.id_modele} eventKey={modele.id_modele}>{modele.libelle}</Dropdown.Item>)
             }))
           }
         </DropdownButton>
@@ -306,12 +338,15 @@ function ProfileVehicule(props) {
           ((selectedType === "Le type du véhicule") && selectedType)||(types.find((e) => (e.id_type_vehicule === parseInt(selectedType))).libelle)
           } onSelect={(e)=>setSelectedType(e)}>
           {
-            types.map(type =>{
+            ((types.length===0) && (<p style={{
+              margin:"1px",
+              color : "gray"
+            }}>-En cours de chargement-</p>)) ||(types.map(type =>{
               return(<Dropdown.Item key={type.id_type_vehicule} eventKey={type.id_type_vehicule}>{type.libelle}</Dropdown.Item>)
-            })
+            }))
           }
         </DropdownButton>
-          <Input label="Couleur du véhicule" inputClass="" containerClass="modifCouleurV" id="modifCouleurVInput" fieldType="text" />
+          <Input label="Couleur du véhicule" inputClass="" containerClass="modifCouleurV" id="modifCouleurVInput" fieldType="text" parDef={viewedVehicle.couleur} />
         </Modal.Body>
         <Modal.Footer className="modifVFooter">
         <div style={{
@@ -335,6 +370,7 @@ function ProfileVehicule(props) {
         </Modal.Footer>
       </Modal>
     );
+    
   }
   if (viewedVehicle.numero_chassis)
   {

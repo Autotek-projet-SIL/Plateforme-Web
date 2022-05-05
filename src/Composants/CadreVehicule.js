@@ -11,12 +11,12 @@ import { decryptData, encryptData } from '../crypto';
 import {Route, Routes, useNavigate} from 'react-router-dom';
 function CadreVehicule(props) {
    //Composant cadre d'un vehicule vehicule
-  
+   
   const alert = useAlert();
  
   const navigate = useNavigate();
   //const {getCurrentCredentials} = useContext(UserContext);
-  const {setLoading,loading} = useContext(UserContext)
+  const {setLoading,loading, suppImage} = useContext(UserContext)
   const [supp, setSupp] = useState(false);
   const handleCloseSupp = () => setSupp(false);
   const handleShowSupp = () => setSupp(true);
@@ -24,7 +24,9 @@ function CadreVehicule(props) {
     //const currCre =  await getCurrentCredentials();
       setLoading(true)
       http.delete(`/flotte/supprimer_vehicule/${props.id}`,{"token" : decryptData(window.localStorage.getItem("auth")),
-      "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then((jResponse)=>{
+      "id_sender": decryptData(window.localStorage.getItem("curruId")),}).then(async(jResponse)=>{
+        
+        await suppImage(props.vehicule.image_vehicule);
         setLoading(false)
         document.location.href="/atc/gestionvehicules/";
       }).catch((error)=>{

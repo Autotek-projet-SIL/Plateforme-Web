@@ -83,7 +83,7 @@ function ProfileAM(props) {
       }
       else{
         try {
-        // await suppImage(viewedUser.photo_am)
+         await suppImage(viewedUser.photo_am)
           let img =await createImage(newPdp[0],"AM",decryptData(window.localStorage.getItem("curruId")));
                 http.put("/gestionprofils/modifier_am/modifier_photo/"+viewedUser.id_am,
             {"token" : decryptData(window.localStorage.getItem("currTok")),

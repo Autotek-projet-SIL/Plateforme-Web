@@ -1,204 +1,447 @@
-#pageProfileAm{
-    width: 100%;
-    height: 100%;
-    justify-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    align-items: stretch;
-    overflow-x: hidden;;
+#pageProfileAm {
+  width: 100%;
+  height: 100%;
+  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  align-items: stretch;
+  overflow-x: hidden;
 }
-#cadreProfileAm{
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    align-items: center;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
+#cadreProfileAm {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
 }
-#divNoAccess{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    width: 100%;
+#divNoAccess {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  width: 100%;
 }
-#monCompteCard{
-    width: 80%;
-    height: 80%;
-    display: grid;
-    box-sizing: border-box;
-    grid-auto-columns: 1fr;
-    gap:0;
-    justify-content: stretch;
-    align-items: stretch;
-    
+#monCompteCard {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  box-sizing: border-box;
+  grid-auto-columns: 1fr;
+  gap: 0;
+  justify-content: stretch;
+  align-items: stretch;
 }
-#monCompteCard>div:first-child{
-    grid-column-start: 1;
-    grid-column-end: 12;
-    grid-row-start: 1;
-    grid-row-end: 12;
-    width: 100%;
-    height: 100%;
+#monCompteCard>div:first-child {
+  grid-column-start: 1;
+  grid-column-end: 12;
+  grid-row-start: 1;
+  grid-row-end: 12;
+  width: 100%;
+  height: 100%;
 }
-#monCompteImg{
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 11;
-    top: 0;
-    left: 0;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    z-index: 2;
-    background-image: url("../../../ressources/images/user-pfp.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    min-height: 420px;
-    max-height: 450px;
+#monCompteImg {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 11;
+  top: 0;
+  left: 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  z-index: 2;
+  background-image: url("../../../ressources/images/user-pfp.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  max-height: 450px;
 }
-#monCompteImg>img{
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    background-color: white;
-}
-
-#monCompteContainer{
-    width: 100%;
-    height: 100%;
-    grid-column-start: 2;
-    grid-column-end: 12;
-    grid-row-start: 2;
-    grid-row-end: 12;
-    background-color: var(--white);
-    border-radius: 3px;
-    padding : 10px;
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-}
-#monCompteInfos{
-    width: 100%;
-    height: 100%;
-    grid-column-start: 4;
-    grid-column-end: 12;
-    grid-row-start: 2;
-    grid-row-end: 12;
-    padding : 10px;
-    gap : 10px;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
-#monCompteInfos hr{
-    border: 1.5px solid var(--darkGreen);
-    background-color: var(--darkGreen);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 2px;
-    width: 100%;
-
-}
-#monCompteInfos h2, #monCompteInfos p {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+#monCompteImg>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: white;
 }
 
-.modifAm{
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
+#monCompteContainer {
+  width: 100%;
+  height: 100%;
+  grid-column-start: 2;
+  grid-column-end: 12;
+  grid-row-start: 2;
+  grid-row-end: 12;
+  background-color: var(--white);
+  border-radius: 3px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+#monCompteInfos {
+  width: 100%;
+  height: 100%;
+  grid-column-start: 4;
+  grid-column-end: 12;
+  grid-row-start: 2;
+  grid-row-end: 12;
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+#monCompteInfos hr {
+  border: 1.5px solid var(--darkGreen);
+  background-color: var(--darkGreen);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  width: 100%;
+}
+#monCompteInfos h2,
+#monCompteInfos p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#modifInfosProfile{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
+.modifAm {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
-#modifPwd{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap:15px;
-    padding: 10px;
-    box-sizing: border-box;
+#modifInfosProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#modifPwd {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .modifAm .button {
-    margin: 3px;
+  margin: 3px;
 }
 
-#statsCadre{
-    display: grid;
-    grid-template-columns: 2fr 10fr;
-    grid-template-rows: auto;
-    padding: 4vw;
-    padding-top: 20px;
-    padding-right: 10vw;
-    box-sizing: border-box;
+#statsCadre {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: auto;
+  padding: 4vw;
+  padding-top: 20px;
+  padding-right: 10vw;
+  box-sizing: border-box;
 }
-#contentTags{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    grid-row-start: 1;
-    grid-row-end: 2;
+#contentTags {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
-#contentTags>div{
-    padding: 10px;
-    font-size: var(--label);
-    font-family: Poppins_light;
-    background-color: var(--lightGreenLow);
-    color : var(--mediumGreen);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+#contentTags>div {
+  padding: 10px;
+  font-size: var(--label);
+  font-family: Poppins_light;
+  background-color: var(--lightGreenLow);
+  color: var(--mediumGreen);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
-#contentTags>div.selectedDiv{
-    cursor:default;
-    background-color: var(--white);
-    color : var(--darkGreen);
+#contentTags>div.selectedDiv {
+  cursor: default;
+  background-color: var(--white);
+  color: var(--darkGreen);
 }
-#statsContainer{
-    background-color: var(--white);
-    padding: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    grid-row-start: 1;
-    grid-row-end: auto;
+#statsContainer {
+  background-color: var(--white);
+  padding: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  grid-row-start: 1;
+  grid-row-end: auto;
+}
+
+#filtrageList {
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+#filtrageActs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap-reverse;
+  flex: 1;
+  gap: 10px;
+}
+#vehiculesListContainer {
+  background-color: var(--lightGreenLow);
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#amVechiculeList {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+.vehiculeSearch {
+  border: 1px solid var(--darkGreen);
+  border-radius: 12px;
+  padding: 5px;
+  height: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 210px;
+  padding: 0.5rem;
+  align-items: center;
+  background: var(--white);
+  font-size: var(--label);
+}
+
+.vehiculeSearch input {
+  border-style: none;
+  background: transparent;
+  outline: none;
+  flex-grow: 1;
+  color: var(--darkGreen);
+  vertical-align: middle;
+}
+
+.vehiculeSearch input::-webkit-input-placeholder {
+  color: var(--darkGreen);
+}
+
+#vehiculeSearchBtn {
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--darkGreen);
+  vertical-align: middle;
+  transition: color 0.25s;
+}
+
+#vehiculeSearchBtn:hover {
+  color: var(--mediumGreen);
+  cursor: pointer;
+}
+
+#reorderIcons {
+  display: flex;
+  flex-direction: column;
+  color: var(--darkGreen);
+  filter: brightness(100%);
+}
+#reorderIcons>.reOrderIcon:not(.disabledOrder):not(.selectedOrder):hover {
+  cursor: pointer;
+  color: var(--mediumGreen);
+}
+.selectedOrder {
+  color: var(--mediumGreenLow);
+  cursor: default;
+}
+.disabledOrder {
+  color: gray;
+  color: rgb(78, 78, 78);
+  cursor: default;
+}
+#noEmp {
+  color: rgb(78, 78, 78);
+  text-align: center;
+}
+
+.custom-dialog-add .dropdown {
+  width: 100%;
+}
+#dispoVehiculeDrop {
+  border: 1px solid var(--mediumGreen);
+  border-radius: 5px;
+  background-color: var(--mediumGreen);
+  padding: 10px;
+  color: var(--white);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dropdown-item {
+  box-sizing: border-box;
+}
+
+h2#dispoVehiculeTitle {
+  margin: 1px;
+  color: var(--darkGreen);
+}
+
+#profileAmDropVue,
+#profileAmDropTime {
+  border: 1px solid var(--darkGreen);
+  border-radius: 5px;
+  background-color: var(--darkGreen);
+  padding: 10px;
+  color: var(--white);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  justify-self: flex-end;
+}
+
+#amFiltrageList {
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap-reverse;
+  flex: 1;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 10px;
+}
+#descTache {
+  width: 100%;
+  box-sizing: border-box;
+}
+#descTache textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+#assignTaskBody {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 10px;
+  justify-items: center;
+  align-items: stretch;
+}
+.datePickerContainer input[type="text" i] {
+  border: 1px solid var(--darkGreen);
+  padding: 7px;
+  transition: 0.4s;
+  background: transparent;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  box-shadow: 0.1px 2px 5px 0.1px var(--darkGreenLow);
+  width: 100%;
+}
+#datePickersDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.custom-dialog-attribuer {
+  margin: auto;
+  min-width: 60% !important;
+}
+#aGraphsTDiv {
+  width: inherit;
+  height: inherit;
+  min-height: 400px;
+  text-align: center;
+  margin-top: 5px;
 }
 @media (max-aspect-ratio: 3/2) {
-    #monCompteImg{
-        grid-column-end: 5;
+    #monCompteImg {
+      grid-column-end: 5;
     }
-    #monCompteInfos{
-        grid-column-start: 5;
+    #monCompteInfos {
+      grid-column-start: 5;
     }
-
-}
-
-@media (max-aspect-ratio: 2/2) {
-    #monCompteImg{
-        grid-column-end: 6;
+  }
+  
+  @media (max-aspect-ratio: 2/2) {
+    #monCompteImg {
+      grid-column-end: 6;
     }
-    #monCompteInfos{
-        grid-column-start: 6;
+    #monCompteInfos {
+      grid-column-start: 6;
     }
-
-}
+  }
+  
+  @media (max-width: 900px) {
+    #modifPwd {
+      grid-template-columns: 1fr;
+    }
+    .modifAm {
+      flex-wrap: wrap-reverse;
+    }
+  }
+  @media (max-width: 700px) {
+    #monCompteCard>div:first-child {
+      grid-column-start: 1;
+      grid-column-end: 12;
+      grid-row-start: 1;
+      grid-row-end: 12;
+    }
+    #monCompteImg {
+      grid-column-start: 1;
+      grid-column-end: 12;
+      grid-row-start: 1;
+      grid-row-end: 4;
+      min-height: 400px;
+      max-height: 450px;
+      border-radius: 3px;
+    }
+    #monCompteImg>img {
+      border-radius: 3px;
+    }
+    #monCompteContainer {
+      grid-column-start: 1;
+      grid-column-end: 12;
+      grid-row-start: 1;
+      grid-row-end: 12;
+    }
+    #monCompteInfos {
+      grid-column-start: 1;
+      grid-column-end: 12;
+      grid-row-start: 4;
+      grid-row-end: 12;
+    }
+  }
+  

@@ -1,16 +1,16 @@
-import './stylesheets/CompteD.css';
-import {useContext} from "react";
+import "./stylesheets/CompteD.css";
+import { useContext } from "react";
 import { UserContext } from "../../Context.js";
-import NavBarD from '../../Composants/NavBarD';import CarteMonCompte from '../../Composants/CarteMonCompte';
+import NavBarD from "../../Composants/NavBarD";
+import CarteMonCompte from "../../Composants/CarteMonCompte";
+
+//Page du compte du Décideur
 function CompteD() {
-  //Page du compte du Décideur
-  const {user, loggingOut} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
-    
     <div id="monCompteDiv">
-      
-     <NavBarD/>
-     <div id="compteD">
+      <NavBarD />
+      <div id="compteD">
         <CarteMonCompte userInfo={user} typeUser="Décideur" />
       </div>
     </div>

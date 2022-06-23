@@ -1,48 +1,66 @@
+@font-face {
+  font-family: Poppins_light;
+  src: url("./ressources/font-poppins/Poppins-Light.otf");
+}
+@font-face {
+  font-family: Poppins_semiBold;
+  src: url("./ressources/font-poppins/Poppins-SemiBold.otf");
+}
+@font-face {
+  font-family: Poppins_bold;
+  src: url("./ressources/font-poppins/Poppins-Bold.otf");
+}
 
-@font-face { font-family: Poppins_light; src: url('./ressources/font-poppins/Poppins-Light.otf'); }
-@font-face { font-family: Poppins_semiBold; src: url('./ressources/font-poppins/Poppins-SemiBold.otf'); }
-@font-face { font-family: Poppins_bold; src: url('./ressources/font-poppins/Poppins-Bold.otf'); }
-
-:root{
+:root {
   /* Variables */
   /*Colors*/
-  --black :#090B09 ;
-  --white :#EFF2EF ;
-  --darkGreen :#042A2B ;
-  --mediumGreen :#1B92A4 ;
-  --lightGreen :#9AD4E2 ;
-  --lightGreenLow :rgba(154, 212, 226, 0.5) ;
-  --darkGreenLow :rgba(4, 42, 43, 0.5) ;
-  --mediumGreenLow :rgba(27, 146, 164, 0.5) ;
-  --errorRed : #DE2A44;
-  --gray : #6E7198;
+  --black: #090b09;
+  --white: #eff2ef;
+  --darkGreen: #042a2b;
+  --mediumGreen: #1b92a4;
+  --lightGreen: #9ad4e2;
+  --lightGreenLow: rgba(154, 212, 226, 0.5);
+  --darkGreenLow: rgba(4, 42, 43, 0.5);
+  --mediumGreenLow: rgba(27, 146, 164, 0.5);
+  --errorRed: #de2a44;
+  --gray: #6e7198;
   /*Gradient*/
-  --primaryGradient : linear-gradient(#4CB2C3, #1B92A4);
-  --hoverPrimaryGradient : linear-gradient(#6ED5E7, #41B1C2);
-  --secondaryGradient : linear-gradient(#AEE2EF, #6ABBCB);
-  --hoverSecondaryGradient : linear-gradient(#C2EEF8, #9AD4E2);
-  
-  --shadow-color:0deg 0% 50%;
+  --primaryGradient: linear-gradient(#4cb2c3, #1b92a4);
+  --hoverPrimaryGradient: linear-gradient(#6ed5e7, #41b1c2);
+  --secondaryGradient: linear-gradient(#aee2ef, #6abbcb);
+  --hoverSecondaryGradient: linear-gradient(#c2eef8, #9ad4e2);
+
+  --shadow-color: 0deg 0% 50%;
   /*Size*/
   --title: 24px;
   --text: 16px;
   --label: 13px;
 }
-div#root, #root>div{
+div#root,
+#root>div {
   width: 100%;
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
 }
 
+textarea {
+  resize: vertical;
+}
 @keyframes float {
-  0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 15px); }
-    100%   { transform: translate(0, -0px); }
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
 }
 
 @media (hover: none) {
-  .button{
+  .button {
     text-shadow: none;
   }
 }

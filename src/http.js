@@ -8,11 +8,4 @@ const instance = axios.create({
   }
 });
 
-/* pour utiliser les tokens de sécurité
-  instance.interceptors.request.use(function (config) {
-    const token = window.localStorage.getItem('token');
-      config.headers.Authorization =token;
-      return config;
-  });
-*/ 
 export default instance;

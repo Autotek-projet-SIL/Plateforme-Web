@@ -1,46 +1,136 @@
+.col-3 input {
+  font: 1rem "Poppins_light";
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  z-index: 2;
+  position: relative;
+}
+:focus {
+  outline: none;
+}
 
-.col-3 input{font: 1rem "Poppins_light"; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; z-index: 2; position: relative;} 
-:focus{outline: none;}
+.col-3 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 3%;
+  position: relative;
+}
 
-.col-3{width:100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 3%; position: relative;} 
-
-.input{border: 1px solid var(--darkGreen); padding: 7px ; transition: 0.4s; background: transparent; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; border-radius: 3px; box-shadow: .1px 2px 5px .1px var(--darkGreenLow);}
+.input {
+  border: 1px solid var(--darkGreen);
+  padding: 7px;
+  transition: 0.4s;
+  background: transparent;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  box-shadow: 0.1px 2px 5px 0.1px var(--darkGreenLow);
+}
 .input ~ .focus-border:before,
-.input ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: var(--mediumGreen); transition: 0.2s; transition-delay: 0.2s;}
-.input ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+.input ~ .focus-border:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--mediumGreen);
+  transition: 0.2s;
+  transition-delay: 0.2s;
+}
+.input ~ .focus-border:after {
+  top: auto;
+  bottom: 0;
+  right: auto;
+  left: 0;
+  transition-delay: 0.6s;
+}
 .input ~ .focus-border i:before,
-.input ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: var(--mediumGreen); transition: 0.2s;}
-.input ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+.input ~ .focus-border i:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background-color: var(--mediumGreen);
+  transition: 0.2s;
+}
+.input ~ .focus-border i:after {
+  left: auto;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  transition-delay: 0.4s;
+}
 .input:focus ~ .focus-border:before,
 .input:focus ~ .focus-border:after,
 .has-content.input ~ .focus-border:before,
-.has-content.input ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+.has-content.input ~ .focus-border:after {
+  width: 100%;
+  transition: 0.2s;
+  transition-delay: 0.6s;
+}
 .input:focus ~ .focus-border:after,
-.has-content.input ~ .focus-border:after{transition-delay: 0.2s;}
+.has-content.input ~ .focus-border:after {
+  transition-delay: 0.2s;
+}
 .input:focus ~ .focus-border i:before,
 .input:focus ~ .focus-border i:after,
 .has-content.input ~ .focus-border i:before,
-.has-content.input ~ .focus-border i:after{height: 100%; transition: 0.2s;}
-.input:focus ~ .focus-border i:after,
-.has-content.input ~ .focus-border i:after{transition-delay: 0.4s;}
-.input ~ label{position: absolute; left: 14px; width: 100%; color: #a3a3a3; transition: 0.3s; z-index: 1; letter-spacing: 0.5px; text-align: left; margin:0;}
-.input:focus ~ label, .has-content.input ~ label{top: -18px; left: 0; font-size: 12px; color: var(--mediumGreen); transition: 0.3s;}
-
-.pwdToggleVis{
-    position: absolute;
-    right: 10px;
-    z-index: 3;
-    cursor: pointer;
-    color : var(--darkGreen)
+.has-content.input ~ .focus-border i:after {
+  height: 100%;
+  transition: 0.2s;
 }
-.pwdToggleVis:hover{
-    filter: brightness(250%);
+.input:focus ~ .focus-border i:after,
+.has-content.input ~ .focus-border i:after {
+  transition-delay: 0.4s;
+}
+.input ~ label {
+  position: absolute;
+  left: 14px;
+  width: 100%;
+  color: #a3a3a3;
+  transition: 0.3s;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  text-align: left;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.input:focus ~ label,
+.has-content.input ~ label {
+  top: -18px;
+  left: 0;
+  font-size: 0.85rem;
+  color: var(--mediumGreen);
+  transition: 0.3s;
+}
+
+.pwdToggleVis {
+  position: absolute;
+  right: 10px;
+  z-index: 3;
+  cursor: pointer;
+  color: var(--darkGreen);
+}
+.pwdToggleVis:hover {
+  filter: brightness(250%);
 }
 .input-error {
-    border-color: var(--errorRed);
+  border-color: var(--errorRed);
 }
-.input-error ~ .focus-border::before,.input-error ~ .focus-border::after,.input-error ~ .focus-border i::before, .input-error ~ .focus-border i::after{
-    
-    border-color: var(--errorRed);
-    background-color: var(--errorRed);
+.input-error ~ .focus-border::before,
+.input-error ~ .focus-border::after,
+.input-error ~ .focus-border i::before,
+.input-error ~ .focus-border i::after {
+  border-color: var(--errorRed);
+  background-color: var(--errorRed);
 }

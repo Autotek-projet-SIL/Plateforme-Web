@@ -1,0 +1,13 @@
+#infoTrajetPopup h4>b {
+  color: var(--mediumGreen);
+}
+#infoTrajetPopup h4>a,
+#infoTrajetPopup h4>a:visited {
+  color: var(--mediumGreen);
+  text-decoration: none;
+}
+#infoTrajetPopup h4>a:hover,
+#infoTrajetPopup h4>a:visited:hover {
+  filter: brightness(90%);
+  font-weight: 800;
+}

@@ -1,95 +1,93 @@
-#atcauthPage{
-    min-height: 100%;
-    width: 100vw;
-    height: 100vh;
-    min-height: fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
+#atcauthPage {
+  min-height: 100%;
+  width: 100vw;
+  height: 100vh;
+  min-height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
 }
 
-#atcauthContainer{
-    width: 90%;
-    height: fit-content;
+#atcauthContainer {
+  width: 90%;
+  height: fit-content;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 5px 4px 10px 2px hsl(var(--shadow-color) / 0.333);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: 1fr;
+  box-sizing: border-box;
+  font-size: 1.3vw;
+}
+#atcauthForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  text-align: center;
+}
+#atcauthForm>img {
+  width: 60%;
+  height: auto;
+  margin-bottom: 50px;
+}
+#atcauthImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  animation: float 7s ease-in-out infinite;
+}
+#atcauthImg>img {
+  width: 100%;
+  height: auto;
+}
+
+#atcauthForm div.formAuthInput {
+  width: 80%;
+}
+#atcauthForm>div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#atcauthForm h4 b {
+  color: var(--mediumGreen);
+  cursor: pointer;
+}
+#atcauthForm h4 b:hover {
+  filter: brightness(90%);
+}
+
+@media (max-width: 1000px) {
+  #atcauthContainer {
+    font-size: 1.5vw;
+  }
+}
+@media (max-width: 900px) {
+  #atcauthContainer {
+    grid-template-columns: 1.3fr 1fr;
+    font-size: 1.8vw;
+  }
+}
+@media (max-width: 700px) {
+  #atcauthContainer {
     margin: 20px 0;
-    padding: 20px;
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 5px 4px 10px 2px hsl(var(--shadow-color) / 0.333);
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: 1fr;
-    box-sizing: border-box;
-    font-size: 1.3vw;
-}
-@media (max-width : 1000px) {
-    #atcauthContainer{
-        font-size: 1.5vw;
-    }  
-
-}
-@media (max-width : 900px) {
-    #atcauthContainer{
-        grid-template-columns: 1.3fr 1fr;
-        font-size: 1.8vw;
-    }  
-
-}
-@media (max-width : 700px) {
-    #atcauthContainer{
-        margin: 20px 0;
-        height: fit-content;
-        width: 85vw;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        font-size: 2.5vw;
-    }  
-
-}
-#atcauthForm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    text-align: center;
-}
-#atcauthForm>img{
-    width: 60%;
-    height: auto;
-    margin-bottom: 50px;
-}
-#atcauthImg{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    animation:  float 7s ease-in-out infinite;
-}
-#atcauthImg>img{
-    width: 100%;
-    height: auto;
-}
-
-#atcauthForm div.formAuthInput{
-    width: 80%;
-}
-#atcauthForm>div{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#atcauthForm h4 b{
-    color: var(--mediumGreen);
-    cursor: pointer;
-}
-#atcauthForm h4 b:hover{
-    filter: brightness(90%);
+    height: fit-content;
+    width: 85vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    font-size: 2.5vw;
+  }
 }

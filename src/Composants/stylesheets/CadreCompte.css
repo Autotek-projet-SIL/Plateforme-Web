@@ -1,105 +1,77 @@
-
-.cadreCompte .cadreImg
-{
-    height: 100%;
-    width: 100%;
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border : 1px solid var(--white);
-    background-color: var(--white);
-}
 .cadreCompte .cadreImg {
-    border-radius : 12px 0 0 12px;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid var(--white);
+  background-color: var(--white);
+  border-radius: 12px 0 0 12px;
+}
+.cadreCompte .infoUser {
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+}
+.cadreCompte .infoUser>.nomUser {
+  color: var(--white);
+}
+.cadreCompte .infoUser>.emailUser {
+  font-family: Poppins_light;
+  color: var(--lightGreen);
 }
 
-.cadreCompte .infoUser{
-    padding: 5px;
-    width: 100%;
-    height: 100%;
+.cadreCompte .infoUser>.typeUser {
+  color: var(--darkGreen);
 }
-.cadreCompte .infoUser>.nomUser
-{
-    color: var(--white);
-
+.cadreCompte .actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  justify-content: space-evenly;
 }
-.cadreCompte .infoUser>.emailUser
-{
-    font-family: Poppins_light;
-    color: var(--lightGreen);
+.viewIcon {
+  color: var(--lightGreen);
+  cursor: pointer;
 }
-
-.cadreCompte .infoUser>.typeUser
-{
-    color: var(--darkGreen);
+.fireIcon {
+  color: var(--darkGreen);
+  cursor: pointer;
 }
-.cadreCompte .actions
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 100%;
-    justify-content: space-evenly;
-}
-.viewIcon
-{
-    color: var(--lightGreen);
-    cursor: pointer;
-}
-.fireIcon
-{
-    color: var(--darkGreen);
-    cursor: pointer;
-}
-.cadreCompte{
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 12px;
-    background-color: var(--mediumGreen);
-    display: grid;
-    grid-template-columns: 2fr 7fr 2fr;
-    grid-template-rows: 1fr;
-    gap: 15px;
-    margin: 10px 0;
-    padding : 10px;
-    align-items:flex-end;
-    box-shadow: 1px 2px 2px hsl(var(--shadow-color) / 0.333),
+.cadreCompte {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  background-color: var(--mediumGreen);
+  display: grid;
+  grid-template-columns: 2fr 7fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 15px;
+  margin: 10px 0;
+  padding: 10px;
+  align-items: flex-end;
+  box-shadow: 1px 2px 2px hsl(var(--shadow-color) / 0.333),
     2px 4px 4px hsl(var(--shadow-color) / 0.333);
 }
 
-
-.custom-dialog{
-    margin: auto;
-    min-width: 50% !important;
+.custom-dialog {
+  margin: auto;
+  min-width: 50% !important;
 }
 
-.custom-dialog2{
-    margin: auto;
-    min-width: 60% !important;
+.custom-dialog2 {
+  margin: auto;
+  min-width: 60% !important;
 }
-.modalActions{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+.modalActions {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 #modalFooter {
-    text-align: left;
-    justify-content: flex-start;
+  text-align: left;
+  justify-content: flex-start;
 }
-
-
-@media (max-width : 600px) {
-    
-    .cadreCompte{
-        gap:0;
-        grid-template-rows: 10fr 1fr 1fr;
-        grid-template-columns: 1fr;
-        align-items:flex-end;
-        height: 500px;
-    }
-    .cadreCompte .cadreImg {
-        border-radius : 12px 12px 0  0 ;
-    }
-    }

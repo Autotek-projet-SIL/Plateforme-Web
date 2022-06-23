@@ -1,65 +1,65 @@
+/* Barre de navigation de l'ATC */
 #logo-navbarATC {
-        width: 60px;
-        height: auto;
-   }
- 
-   #icone_compte_atc {
-       width: 40px;
-       height: auto;
-       justify-self: right;
-       align-self: center;
-       align-items: center;
-       cursor: pointer;
-   }
-@media (max-width : 560px) {
-    #logo-navbarATC {
-            width: 50px;
-       }
-     
-       #icone_compte_atc {
-            width: 40px;
-       }
-       .nav-eles{
-
-        padding:0 3px !important;
-       }
+  width: 60px;
+  height: auto;
 }
-   .show:hover div.list-categories{
-    max-height: inherit;
-    opacity: 1;
+
+#icone_compte_atc {
+  width: 40px;
+  height: auto;
+  justify-self: right;
+  align-self: center;
+  align-items: center;
+  cursor: pointer;
+}
+.show {
+  z-index: 9;
+}
+.list-categories {
+  padding: 0px;
+  max-height: 0px;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+  text-align: center;
+  overflow: hidden;
+  margin-left: -150px;
+}
+.show:hover div.list-categories {
+  max-height: inherit;
+  opacity: 1;
+}
+
+.show ul {
+  margin: 0;
+  border: none;
+}
+.show ul li {
+  cursor: pointer;
+  background-color: var(--white);
+  display: block;
+  padding: 15px;
+  width: 180px;
+  margin-left: 25px;
+  border: 0.1px solid #1b92a4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  height: 50px;
+  border-top: none;
+}
+
+@media (max-width: 560px) {
+  #logo-navbarATC {
+    width: 50px;
   }
-  
-  .list-categories{
-    padding: 0px;
-    max-height: 0px;
-    opacity: 0;
-    transition: opacity 100ms ease;
-    text-align: center;
-    overflow: hidden;
-    margin-left: -150px;
- 
+
+  #icone_compte_atc {
+    width: 40px;
   }
-  .show ul {
-      margin : 0;
-      border: none;
+  .nav-eles {
+    padding: 0 3px !important;
   }
-  .show ul li {
-      cursor: pointer;
-    background: #EFF2EF;
-    display: block;
-    padding: 15px;
-    width: 180px;
-    margin-left: 25px;
-    background: #EFF2EF;
-    border: 0.1px solid #1B92A4;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    text-align: center;
-    height:50px;
-    border-top: none;
-   
-  
- }
+}

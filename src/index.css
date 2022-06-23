@@ -1,12 +1,15 @@
-@font-face { font-family: Poppins_regular; src: url('./ressources/font-poppins/Poppins-Regular.otf'); }
-html,body {
+@font-face {
+  font-family: Poppins_regular;
+  src: url("./ressources/font-poppins/Poppins-Regular.otf");
+}
+html,
+body {
   height: 100vh;
   width: 100vw;
   padding: 0;
   margin: 0;
-  font-family:'Poppins_regular', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Poppins_regular", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
@@ -14,29 +17,27 @@ html,body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-#noSc
-{
+#noSc {
   text-align: center;
   justify-content: center;
   align-items: center;
   align-content: center;
-  width : 100vw;
+  width: 100vw;
   height: 100vh;
   box-sizing: border-box;
 }
 
-#notUsingJs
-{
+#notUsingJs {
   margin: 0;
   margin-bottom: 15px;
   padding: 4px 12px;
   background-color: #cfcfcf;
   border-left: 6px solid var(--mediumGreen);
-  color:var(--darkGreen);
+  color: var(--darkGreen);
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -48,25 +49,22 @@ code {
   font-size: 20px;
   box-sizing: border-box;
 }
-#imgL
-{
+#imgL {
   width: 70%;
   height: auto;
   position: absolute;
   left: 0;
   right: 0;
   margin: auto;
-  bottom : 10%;
+  bottom: 10%;
 }
-@media screen and (max-width : 1000px) {
-  #imgL
-  {
+@media screen and (max-width: 1000px) {
+  #imgL {
     width: 90%;
   }
 }
-@media screen and (max-width : 500px) {
-  #imgL
-  {
+@media screen and (max-width: 500px) {
+  #imgL {
     width: 100%;
   }
 }

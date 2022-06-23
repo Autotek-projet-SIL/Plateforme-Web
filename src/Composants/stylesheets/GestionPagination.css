@@ -1,0 +1,14 @@
+#childrenContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+#paginationDiv {
+  margin-top: 15px;
+}
+#paginationDiv #pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

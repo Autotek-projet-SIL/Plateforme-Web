@@ -1,0 +1,86 @@
+.cadreSupp {
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 90%;
+  border-radius: 12px;
+  background-color: var(--mediumGreen);
+  color: var(--white);
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 1fr;
+  gap: 15px;
+  margin: 10px 0;
+  padding: 10px;
+  align-items: flex-end;
+  box-shadow: 1px 2px 2px hsl(var(--shadow-color) / 0.333),
+    2px 4px 4px hsl(var(--shadow-color) / 0.333);
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  align-self: center;
+}
+
+.cadreSupp .cadreImg {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid var(--white);
+  background-color: var(--white);
+  border-radius: 12px 0 0 12px;
+}
+.cadreSupp .suppInfos {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cadreSupp h3 {
+  margin: 3px;
+}
+.cadreSupp a,
+.cadreSupp a:visited {
+  margin: 0;
+  color: var(--darkGreen);
+  text-shadow: none;
+  font-size: smaller;
+}
+.cadreSupp a:hover,
+.cadreSupp a:visited:hover {
+  filter: brightness(0%);
+  text-shadow: none;
+}
+.cadreSupp .supportIcon {
+  cursor: pointer;
+}
+
+.cadreSupp .supportDescTitle {
+  margin: 3px;
+  margin-bottom: 4px;
+  font-weight: lighter;
+}
+.cadreSupp .supportDesc {
+  margin: 0;
+  padding: 1%;
+  border: 1px solid var(--white);
+  border-radius: 5px;
+  font-size: small;
+  text-shadow: none;
+  box-shadow: 5px 6px 3px -3px rgba(0, 0, 0, 0.1);
+}
+#reponseDemandeSupp {
+  display: block;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#reponseDemandeSupp>.form-control {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (width<900px) {
+  .cadreSupp {
+    width: 100%;
+    max-width: 100%;
+  }
+}

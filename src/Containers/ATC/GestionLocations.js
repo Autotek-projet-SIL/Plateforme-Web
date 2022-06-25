@@ -111,14 +111,14 @@ function GestionLocations() {
       case "Locations en cours":
         setLocations(
           locs.filter((e) => {
-            return e.en_cours === true;
+            return (e.en_cours === true)&&(e.status_demande_location !== "rejete");
           })
         );
         break;
       case "Locations terminées":
         setLocations(
           locs.filter((e) => {
-            return e.en_cours === false;
+            return (e.en_cours === false)&&(e.status_demande_location !== "rejete");
           })
         );
         break;

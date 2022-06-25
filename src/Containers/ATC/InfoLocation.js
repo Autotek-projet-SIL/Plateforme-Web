@@ -116,6 +116,7 @@ function InfoLocation(props) {
         if (t["id"] === viewedLocation.numero_chassis) {
           let tr = [];
           tr.push(t);
+          console.log(tr)
           setTrajet(tr);
         }
       });
@@ -213,6 +214,7 @@ function InfoLocation(props) {
             )) ||
               (viewedLocation.en_cours && (
                 <div id="loc_map">
+                  {console.log(trajet)}
                   <Map heightValue="70vh" widthValue="70vw" markers={trajet} />
                 </div>
               )) || (

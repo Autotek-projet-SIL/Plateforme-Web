@@ -608,7 +608,7 @@ function ProfileAM(props) {
         <div id="monCompteInfos">
           <div id="modifInfosProfile">
             <Input
-              label="Votre nom"
+              label="Nom"
               inputClass=""
               containerClass="modifAmInput"
               id="amModifNom"
@@ -616,7 +616,7 @@ function ProfileAM(props) {
               parDef={viewedUser.nom}
             />
             <Input
-              label="Votre prénom"
+              label="Prénom"
               inputClass=""
               containerClass="modifAmInput"
               id="amModifPrenom"
@@ -624,7 +624,7 @@ function ProfileAM(props) {
               parDef={viewedUser.prenom}
             />
             <Input
-              label="Votre numéro de téléphone"
+              label="Numéro de téléphone"
               inputClass=""
               containerClass="modifAmInput"
               id="amModifTlfn"

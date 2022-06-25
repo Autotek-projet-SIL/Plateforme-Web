@@ -156,7 +156,7 @@ function ProfileDecideur(props) {
         <div id="monCompteInfos">
           <div id="modifInfosProfile">
             <Input
-              label="Votre nom"
+              label="Nom"
               inputClass=""
               containerClass="modifDecideurInput"
               id="decideurModifNom"
@@ -164,7 +164,7 @@ function ProfileDecideur(props) {
               parDef={viewedUser.nom}
             />
             <Input
-              label="Votre prénom"
+              label="Prénom"
               inputClass=""
               containerClass="modifDecideurInput"
               id="decideurModifPrenom"
@@ -172,7 +172,7 @@ function ProfileDecideur(props) {
               parDef={viewedUser.prenom}
             />
             <Input
-              label="Votre numéro de téléphone"
+              label="Numéro de téléphone"
               inputClass=""
               containerClass="modifDecideurInput"
               id="decideurModifTlfn"

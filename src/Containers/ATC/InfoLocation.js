@@ -28,8 +28,9 @@ function InfoLocation(props) {
   const [querySnapshot, setSnapshot] = useState(null);
   const [adrDebut, setDebut] = useState("");
   const [adrDest, setDest] = useState("");
-  
+
   useEffect(() => {
+    console.log(props.locationId)
     http
       .get("/gestionlocations/location/" + props.locationId, {
         headers: {
@@ -42,27 +43,39 @@ function InfoLocation(props) {
           navigate("/404", { replace: true });
         } else {
           async function getAdresses() {
-            await getReverseGeocodingData(
-              response.data[0].latitude_depart,
-              response.data[0].longitude_depart,
-              (adresse) => {
-                setDebut(adresse);
-              }
-            );
-            await getReverseGeocodingData(
-              response.data[0].latitude_arrive,
-              response.data[0].longitude_arrive,
-              (adresse) => {
-                setDest(adresse);
-              }
-            );
+            if (
+              response.data[0].latitude_depart !== 0 &&
+              response.data[0].longitude_depart !== 0
+            ) {
+              await getReverseGeocodingData(
+                response.data[0].latitude_depart,
+                response.data[0].longitude_depart,
+                (adresse) => {
+                  setDebut(adresse);
+                }
+              );
+            }
+            if (
+              response.data[0].latitude_arrive !== 0 &&
+              response.data[0].longitude_arrive !== 0
+            ) {
+              await getReverseGeocodingData(
+                response.data[0].latitude_arrive,
+                response.data[0].longitude_arrive,
+                (adresse) => {
+                  setDest(adresse);
+                }
+              );
+            }
           }
-
           async function getTrajet() {
             await getCarLocations(setSnapshot);
           }
           getAdresses();
-          http
+          if (response.data[0].status_demande_location !== "rejete")
+          {
+
+            http
             .get("/flotte/detail_vehicule/" + response.data[0].numero_chassis, {
               headers: {
                 token: decryptData(window.localStorage.getItem("currTok")),
@@ -99,6 +112,30 @@ function InfoLocation(props) {
                   });
                 });
             });
+          }
+          else{
+            http
+              .get(
+                "/gestionprofils/locataire/" + response.data[0].id_locataire,
+                {
+                  headers: {
+                    token: decryptData(
+                      window.localStorage.getItem("currTok")
+                    ),
+                    id_sender: decryptData(
+                      window.localStorage.getItem("curruId")
+                    ),
+                  },
+                }
+              )
+              .then((lresponse) => {
+                setViewedLocation({
+                  ...response.data[0],
+                  nom: lresponse.data[0]["nom"],
+                  prenom: lresponse.data[0]["prenom"],
+                });
+              });
+          }
         }
       })
       .catch((err) => {
@@ -116,7 +153,7 @@ function InfoLocation(props) {
         if (t["id"] === viewedLocation.numero_chassis) {
           let tr = [];
           tr.push(t);
-          console.log(tr)
+          console.log(tr);
           setTrajet(tr);
         }
       });
@@ -129,12 +166,12 @@ function InfoLocation(props) {
       <div id="infoLocationContainer">
         <NavBarATC />
         <div id="infoLocation">
-          <div id="loc_imgDiv">
+          {(viewedLocation.status_demande_location !== "rejete") &&<div id="loc_imgDiv">
             <img src={viewedLocation.image_vehicule} alt="Photo du véhicule" />
-          </div>
+          </div>}
           <div id="loc_infos">
             <h3>{viewedLocation.nom + " " + viewedLocation.prenom}</h3>
-            <h4>
+            {(viewedLocation.status_demande_location !== "rejete") &&<h4>
               {viewedLocation.modele} #{viewedLocation.numero_chassis}
               <FontAwesomeIcon
                 icon="fa-solid fa-magnifying-glass"
@@ -144,7 +181,7 @@ function InfoLocation(props) {
                   navigate("/atc/vehicule/" + viewedLocation.numero_chassis)
                 }
               />
-            </h4>
+            </h4>}
 
             <hr />
             <div>
@@ -178,32 +215,36 @@ function InfoLocation(props) {
                   (viewedLocation.en_cours && "En cours") ||
                   "Terminée"}
               </p>
-              <p>
-                <a
-                  className="locationTitle"
-                  href={
-                    "https://www.google.dz/maps/place/" +
-                    adrDebut.replace(" ", "+")
-                  }
-                  title="Adresse départ de la location"
-                >
-                  <b>De: </b>
-                  {adrDebut}
-                </a>
-              </p>
-              <p>
-                <a
-                  className="locationTitle"
-                  href={
-                    "https://www.google.dz/maps/place/" +
-                    adrDest.replace(" ", "+")
-                  }
-                  title="Adresse d'arrivée de la location"
-                >
-                  <b>Vers: </b>
-                  {adrDest}
-                </a>
-              </p>
+              {viewedLocation.status_demande_location !== "rejete" && (
+                <p>
+                  <a
+                    className="locationTitle"
+                    href={
+                      "https://www.google.dz/maps/place/" +
+                      adrDebut.replace(" ", "+")
+                    }
+                    title="Adresse départ de la location"
+                  >
+                    <b>De: </b>
+                    {adrDebut}
+                  </a>
+                </p>
+              )}
+              {viewedLocation.status_demande_location !== "rejete" && (
+                <p>
+                  <a
+                    className="locationTitle"
+                    href={
+                      "https://www.google.dz/maps/place/" +
+                      adrDest.replace(" ", "+")
+                    }
+                    title="Adresse d'arrivée de la location"
+                  >
+                    <b>Vers: </b>
+                    {adrDest}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           <div id="loc_more">

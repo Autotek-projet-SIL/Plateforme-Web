@@ -8,20 +8,26 @@ function CadreLocation(props) {
 
   useEffect(() => {
     async function getAdresses() {
-      await getReverseGeocodingData(
-        props.location.latitude_depart,
-        props.location.longitude_depart,
-        (adresse) => {
-          setDebut(adresse);
-        }
-      );
-      await getReverseGeocodingData(
-        props.location.latitude_arrive,
-        props.location.longitude_arrive,
-        (adresse) => {
-          setDest(adresse);
-        }
-      );
+      if ((props.location.latitude_depart!==0) && (props.location.longitude_depart!==0)){
+        await getReverseGeocodingData(
+          props.location.latitude_depart,
+          props.location.longitude_depart,
+          (adresse) => {
+            setDebut(adresse);
+          }
+        );
+      }
+      if ((props.location.latitude_arrive!==0) && (props.location.longitude_arrive!==0)){
+        await getReverseGeocodingData(
+          props.location.latitude_arrive,
+          props.location.longitude_arrive,
+          (adresse) => {
+            setDest(adresse);
+          }
+        );
+      }
+      
+      
     }
     getAdresses();
   }, []);

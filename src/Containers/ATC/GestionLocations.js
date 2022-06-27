@@ -42,7 +42,6 @@ function GestionLocations() {
       })
       .then((jResponse) => {
         setListLocations(jResponse.data);
-        console.log(jResponse.data)
         if (jResponse.data.length !== 0) {
           document
             .querySelectorAll("#reorderIcons>.reOrderIcon")

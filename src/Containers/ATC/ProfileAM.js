@@ -127,10 +127,10 @@ function ProfileAM(props) {
                 setFetchedTasks(
                   reponse.data.sort((a, b) => {
                     if (a.date_debut > b.date_debut) {
-                      return -1;
+                      return 1;
                     }
                     if (a.date_debut < b.date_debut) {
-                      return 1;
+                      return -1;
                     }
                     return 0;
                   })

@@ -13,7 +13,7 @@ import { DropdownButton, Spinner, Dropdown } from "react-bootstrap";
 import ClipLoader from "react-spinners/ClipLoader";
 
 //Page de gestion des demandes (inscription + support) de l'ATC
-function GestionDemandes() {
+function GestionDemandes(props) {
   const { setLoading, loading } = useContext(UserContext);
   let redirection = false;
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ function GestionDemandes() {
   const [etatDmnd, setEtatDmnd] = useState("Toutes les demandes"); // Filtrer la liste des demandes
   const [listOrder, setOrder] = useState("Up"); // Ordonner la liste des demandes
   const [searchFor, search] = useState("");
+  
   useEffect(() => {
     //Redirection si URL incorrect / incomplet
     if (redirection !== false) {
@@ -42,7 +43,7 @@ function GestionDemandes() {
   useEffect(() => {
     search("");
     //Récupérer les données selon l'onglet courrant
-    if (window.location.pathname === "/atc/gestiondemandes/inscription") {
+    if (props.onglet === "insc") {
       //récupérer les demandes d'inscription
       getDemandesInsc();
       const interval = setInterval(() => {
@@ -57,7 +58,7 @@ function GestionDemandes() {
       }, refreshInterval);
       return () => clearInterval(interval);
     }
-  }, [window.location.pathname]);
+  }, [props.onglet]);
 
   useEffect(() => {
     setNumPages(Math.ceil(listDemandes.length / numItems));
@@ -187,7 +188,7 @@ function GestionDemandes() {
   }
 
   async function getDemandesInsc() {
-  //récupérer les demandes d'inscription de la base de données
+    //récupérer les demandes d'inscription de la base de données
     document.querySelectorAll("#reorderIcons>.reOrderIcon").forEach((icon) => {
       icon.classList.add("disabledOrder");
       icon.classList.remove("selectedOrder");
@@ -228,7 +229,7 @@ function GestionDemandes() {
   }
 
   async function getDemandesSupport() {
-  //récupérer les demandes de support de la base de données
+    //récupérer les demandes de support de la base de données
     document.querySelectorAll("#reorderIcons>.reOrderIcon").forEach((icon) => {
       icon.classList.add("disabledOrder");
       icon.classList.remove("selectedOrder");
@@ -267,7 +268,7 @@ function GestionDemandes() {
         });
     }
   }
-  
+
   function orderUp(event) {
     //Re-Ordonner la liste des demandes
     if (
@@ -388,135 +389,137 @@ function GestionDemandes() {
         return null;
 
       case "/atc/gestiondemandes/inscription":
-        return (
-          <div id="pageDemandes">
-            <div id="demandesVues">
-              <div id="vueChosen">Demandes d'inscription</div>
-              <div
-                id="vueNotChosen"
-                onClick={() => {
-                  setDemandes([]);
-                  navigate("/atc/gestiondemandes/support");
-                }}
-              >
-                Demandes de support
-              </div>
-            </div>
-            <div id="demandesInsc">
-              <div id="filtrageList">
-                <h2 id="etatDmndTitle">Liste des demandes d'inscription</h2>
-                <div id="filtrageActs">
-                  <DropdownButton
-                    id="etatDmndDrop"
-                    title={etatDmnd}
-                    onSelect={(e) => setEtatDmnd(e)}
-                  >
-                    <Dropdown.Item eventKey="Toutes les Demandes">
-                      Toutes les Demandes
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="Demandes validées">
-                      Demandes validées
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="Demandes en attente">
-                      Demandes en attente
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="Demandes rejetées">
-                      Demandes rejetées
-                    </Dropdown.Item>
-                  </DropdownButton>
-                  <div className="demandesSearch">
-                    <input
-                      type="text"
-                      placeholder="Recherche"
-                      id="demandeSearchField"
-                    ></input>
-                    <FontAwesomeIcon
-                      id="demandeSearchBtn"
-                      icon="fas fa-search"
-                      onClick={() =>
-                        search(
-                          document.querySelector("#demandeSearchField").value
-                        )
-                      }
-                    />
-                  </div>
-                  <div id="reorderIcons">
-                    <FontAwesomeIcon
-                      className="reOrderIcon disabledOrder"
-                      id="iconOrderUp"
-                      icon="fas fa-angle-up "
-                      onClick={(event) => orderUp(event)}
-                    />
-                    <FontAwesomeIcon
-                      className="reOrderIcon disabledOrder"
-                      id="iconOrderDown"
-                      icon="fas fa-angle-down "
-                      onClick={(event) => orderDown(event)}
-                    />
-                  </div>
+        if (props.onglet === "insc")
+          return (
+            <div id="pageDemandes">
+              <div id="demandesVues">
+                <div id="vueChosen">Demandes d'inscription</div>
+                <div
+                  id="vueNotChosen"
+                  onClick={() => {
+                    setDemandes([]);
+                    navigate("/atc/gestiondemandes/support");
+                  }}
+                >
+                  Demandes de support
                 </div>
               </div>
-              <div id="demandesList">{returnListInsc()}</div>
+              <div id="demandesInsc">
+                <div id="filtrageList">
+                  <h2 id="etatDmndTitle">Liste des demandes d'inscription</h2>
+                  <div id="filtrageActs">
+                    <DropdownButton
+                      id="etatDmndDrop"
+                      title={etatDmnd}
+                      onSelect={(e) => setEtatDmnd(e)}
+                    >
+                      <Dropdown.Item eventKey="Toutes les Demandes">
+                        Toutes les Demandes
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Demandes validées">
+                        Demandes validées
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Demandes en attente">
+                        Demandes en attente
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Demandes rejetées">
+                        Demandes rejetées
+                      </Dropdown.Item>
+                    </DropdownButton>
+                    <div className="demandesSearch">
+                      <input
+                        type="text"
+                        placeholder="Recherche"
+                        id="demandeSearchField"
+                      ></input>
+                      <FontAwesomeIcon
+                        id="demandeSearchBtn"
+                        icon="fas fa-search"
+                        onClick={() =>
+                          search(
+                            document.querySelector("#demandeSearchField").value
+                          )
+                        }
+                      />
+                    </div>
+                    <div id="reorderIcons">
+                      <FontAwesomeIcon
+                        className="reOrderIcon disabledOrder"
+                        id="iconOrderUp"
+                        icon="fas fa-angle-up "
+                        onClick={(event) => orderUp(event)}
+                      />
+                      <FontAwesomeIcon
+                        className="reOrderIcon disabledOrder"
+                        id="iconOrderDown"
+                        icon="fas fa-angle-down "
+                        onClick={(event) => orderDown(event)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div id="demandesList">{returnListInsc()}</div>
+              </div>
             </div>
-          </div>
-        );
-
+          );
+        return null;
       case "/atc/gestiondemandes/support":
-        return (
-          <div id="pageDemandes">
-            <div id="demandesVues">
-              <div
-                id="vueNotChosen"
-                onClick={() => {
-                  setDemandes([]);
-                  navigate("/atc/gestiondemandes/inscription");
-                }}
-              >
-                Demandes d'inscription
+        if (props.onglet === "supp")
+          return (
+            <div id="pageDemandes">
+              <div id="demandesVues">
+                <div
+                  id="vueNotChosen"
+                  onClick={() => {
+                    setDemandes([]);
+                    navigate("/atc/gestiondemandes/inscription");
+                  }}
+                >
+                  Demandes d'inscription
+                </div>
+                <div id="vueChosen">Demandes de support</div>
               </div>
-              <div id="vueChosen">Demandes de support</div>
-            </div>
-            <div id="demandesInsc">
-              <div id="filtrageList">
-                <h2 id="etatDmndTitle">Liste des demandes de support</h2>
-                <div id="filtrageActs">
-                  <div className="demandesSearch">
-                    <input
-                      type="text"
-                      placeholder="Recherche"
-                      id="demandeSearchField"
-                    ></input>
-                    <FontAwesomeIcon
-                      id="demandeSearchBtn"
-                      icon="fas fa-search"
-                      onClick={() =>
-                        search(
-                          document.querySelector("#demandeSearchField").value
-                        )
-                      }
-                    />
-                  </div>
-                  <div id="reorderIcons">
-                    <FontAwesomeIcon
-                      className="reOrderIcon disabledOrder"
-                      id="iconOrderUp"
-                      icon="fas fa-angle-up "
-                      onClick={(event) => orderUp(event)}
-                    />
-                    <FontAwesomeIcon
-                      className="reOrderIcon disabledOrder"
-                      id="iconOrderDown"
-                      icon="fas fa-angle-down "
-                      onClick={(event) => orderDown(event)}
-                    />
+              <div id="demandesInsc">
+                <div id="filtrageList">
+                  <h2 id="etatDmndTitle">Liste des demandes de support</h2>
+                  <div id="filtrageActs">
+                    <div className="demandesSearch">
+                      <input
+                        type="text"
+                        placeholder="Recherche"
+                        id="demandeSearchField"
+                      ></input>
+                      <FontAwesomeIcon
+                        id="demandeSearchBtn"
+                        icon="fas fa-search"
+                        onClick={() =>
+                          search(
+                            document.querySelector("#demandeSearchField").value
+                          )
+                        }
+                      />
+                    </div>
+                    <div id="reorderIcons">
+                      <FontAwesomeIcon
+                        className="reOrderIcon disabledOrder"
+                        id="iconOrderUp"
+                        icon="fas fa-angle-up "
+                        onClick={(event) => orderUp(event)}
+                      />
+                      <FontAwesomeIcon
+                        className="reOrderIcon disabledOrder"
+                        id="iconOrderDown"
+                        icon="fas fa-angle-down "
+                        onClick={(event) => orderDown(event)}
+                      />
+                    </div>
                   </div>
                 </div>
+                <div id="demandesList">{returnListSupport()}</div>
               </div>
-              <div id="demandesList">{returnListSupport()}</div>
             </div>
-          </div>
-        );
-
+          );
+        return null;
       default:
         setRedirection("/404");
         return null;

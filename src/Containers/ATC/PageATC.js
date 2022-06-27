@@ -72,9 +72,10 @@ function PageATC() {
 
         case "/atc/gestiondemandes":
         case "/atc/gestiondemandes/inscription":
-        case "/atc/gestiondemandes/support":
-          return <GestionDemandes />;
+          return <GestionDemandes onglet='insc' />;
 
+          case "/atc/gestiondemandes/support":
+            return <GestionDemandes onglet='supp' />;
         case "/atc/gestioncomptes":
         case "/atc/gestioncomptes/":
           return <GestionComptes />;

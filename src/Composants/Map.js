@@ -22,7 +22,7 @@ export default function Map(props) {
   };
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCYFQXP0t1dUWtl9V4xm73lt-l_nQQIkcw",
+    googleMapsApiKey: "Votre cle ici",
   });
 
   const [map, setMap] = useState(null);

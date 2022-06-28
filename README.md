@@ -2,7 +2,7 @@
 
 # Remarque importante
 L'application utilise l'API de Google Maps et donc utilise une cle googleMapsApiKey, afin de pouvoir utiliser ce projet veuillez remplacer la chaine de character par votre cle googleMapsApiKey dans le fichier Autotek-Plateforme-Web\src\Composants\Map.js, ligne 25 
-### googleMapsApiKey: "Votre cle ici"
+### `googleMapsApiKey: "Votre cle ici"`
 
 # Getting Started with Create React App
 
